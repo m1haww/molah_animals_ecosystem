@@ -10,7 +10,7 @@ class SelectConnection extends StatefulWidget {
 }
 
 class _SelectConnectionState extends State<SelectConnection> {
-  List<int> _selectedIndices = []; // Track selected indices
+  final List<int> _selectedIndices = []; // Track selected indices
 
   void _toggleSelection(int index) {
     setState(() {

@@ -6,11 +6,11 @@ class ContainerSelectConnection extends StatelessWidget {
   final VoidCallback onTap;
 
   const ContainerSelectConnection({
-    Key? key,
+    super.key,
     required this.text,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +43,17 @@ class ContainerSelectConnection extends StatelessWidget {
               ),
               const SizedBox(width: 8), // Spațiu între imagine și text
               // Text dinamic
-              Expanded(
+              const Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "titlu",
                       style: TextStyle(fontSize: 17, color: Colors.black),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     // Text dinamic care poate avea dimensiuni variabile
-                    const Text(
+                    Text(
                       'Acesta este un text mai lung care se va ajusta automat.',
                       style: TextStyle(
                         fontSize: 13,

@@ -8,11 +8,11 @@ class ContainerCheck extends StatelessWidget {
       onTap; // This callback is called when the container is tapped
 
   const ContainerCheck({
-    Key? key,
+    super.key,
     required this.text,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

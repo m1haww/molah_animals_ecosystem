@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:molah_animals_ecosystem/models/ecosystem.dart';
 import 'package:molah_animals_ecosystem/pages/add_page.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, required this.title, required this.description})
-      : super(key: key);
+  const Home({super.key, required this.title, required this.description});
   final String title;
   final String description;
 
@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Map<String, String>> ecosystemItems = [];
+  List<Ecosystem> ecosystemItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
                         builder: (context) => const AddPage(),
                       ),
                     );
-                    if (result != null && result is Map<String, String>) {
+                    if (result != null && result is Ecosystem) {
                       setState(() {
                         ecosystemItems.add(result); // Add new item to list
                       });
@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(
-                      ecosystemItems[index][widget.title] ?? widget.title,
+                      ecosystemItems[index].title,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

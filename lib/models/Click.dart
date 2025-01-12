@@ -7,12 +7,12 @@ class Click extends StatefulWidget {
   final VoidCallback onTap;
 
   const Click({
-    Key? key,
+    super.key,
     required this.text,
     required this.image,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   _ClickState createState() => _ClickState();

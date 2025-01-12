@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/main.dart';
 import 'package:molah_animals_ecosystem/models/container.dart';
+import 'package:molah_animals_ecosystem/models/ecosystem.dart';
 import 'package:molah_animals_ecosystem/pages/Home.dart';
 import 'package:molah_animals_ecosystem/pages/add_predator.dart';
 import 'package:molah_animals_ecosystem/pages/add_saved_page.dart';
 import 'package:molah_animals_ecosystem/pages/add_victim.dart';
 
 class AddPage extends StatefulWidget {
-  const AddPage({Key? key}) : super(key: key);
+  const AddPage({super.key});
   @override
   State<AddPage> createState() => _AddPageState();
 }
@@ -28,18 +29,14 @@ class _AddPageState extends State<AddPage> {
               onTap: () {
                 if (titleController.text.isNotEmpty &&
                     descriptionController.text.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => Home(
-                        title: titleController.text,
-                        description: descriptionController.text,
-                      ),
-                    ),
-                  );
+                  Navigator.pop(
+                      context,
+                      Ecosystem(
+                          title: titleController.text,
+                          description: descriptionController.text));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Please fill in all fields")),
+                    const SnackBar(content: Text("Please fill in all fields")),
                   );
                 }
               },
@@ -90,7 +87,7 @@ class _AddPageState extends State<AddPage> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => Home(
+                          builder: (context) => const Home(
                             title: "",
                             description: '',
                           ),

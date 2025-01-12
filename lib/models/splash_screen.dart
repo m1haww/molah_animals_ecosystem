@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/models/onboarding.dart';
 import 'dart:async';
 
 class splashscreen extends StatefulWidget {

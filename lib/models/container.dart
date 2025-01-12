@@ -64,9 +64,9 @@ Widget buildIconBack(BuildContext context) {
 }
 
 Widget buildNextbuton(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 20.0),
-    child: const Text(
+  return const Padding(
+    padding: EdgeInsets.only(right: 20.0),
+    child: Text(
       "Next",
       style: TextStyle(color: Color(0xffE5182B), fontSize: 17),
     ),
