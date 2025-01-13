@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/navigation_page.dart';
-import 'package:molah_animals_ecosystem/pages/add_page.dart';
-import 'package:molah_animals_ecosystem/pages/add_victim.dart';
-import 'package:molah_animals_ecosystem/pages/select_connection.dart';
+import 'package:molah_animals_ecosystem/pages/appProvider/appProvider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => EcosystemProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

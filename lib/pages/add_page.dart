@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/main.dart';
 import 'package:molah_animals_ecosystem/models/container.dart';
 import 'package:molah_animals_ecosystem/models/ecosystem.dart';
 import 'package:molah_animals_ecosystem/pages/Home.dart';
 import 'package:molah_animals_ecosystem/pages/add_predator.dart';
-import 'package:molah_animals_ecosystem/pages/add_saved_page.dart';
 import 'package:molah_animals_ecosystem/pages/add_victim.dart';
 
 class AddPage extends StatefulWidget {
@@ -15,6 +13,8 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  bool addPredatoravailable = false;
+  bool AddVictimavailable = false;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   @override
@@ -24,24 +24,24 @@ class _AddPageState extends State<AddPage> {
     return Scaffold(
       appBar: AppBar(
         leading: buildIconBack(context),
-        actions: [
-          GestureDetector(
-              onTap: () {
-                if (titleController.text.isNotEmpty &&
-                    descriptionController.text.isNotEmpty) {
-                  Navigator.pop(
-                      context,
-                      Ecosystem(
-                          title: titleController.text,
-                          description: descriptionController.text));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Please fill in all fields")),
-                  );
-                }
-              },
-              child: buildNextbuton(context))
-        ],
+        // actions: [
+        //   GestureDetector(
+        //       onTap: () {
+        //         if (titleController.text.isNotEmpty &&
+        //             descriptionController.text.isNotEmpty) {
+        //           Navigator.pop(
+        //               context,
+        //               Ecosystem(
+        //                   title: titleController.text,
+        //                   description: descriptionController.text));
+        //         } else {
+        //           ScaffoldMessenger.of(context).showSnackBar(
+        //             const SnackBar(content: Text("Please fill in all fields")),
+        //           );
+        //         }
+        //       },
+        //       child: buildNextbuton(context))
+        // ],
       ),
       body: SafeArea(
           child: Padding(
@@ -67,37 +67,59 @@ class _AddPageState extends State<AddPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
+                if (!addPredatoravailable)
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
                         context,
-                        CupertinoPageRoute(
-                          builder: (context) => Home(
-                            title: titleController.text,
-                            description: "",
-                          ),
-                        ));
-                  },
-                  child: buildAddContainer(context, "Add a predator",
-                      const Color(0xffE5182B), Colors.white),
-                ),
+                        CupertinoPageRoute(builder: (context) => AddPredator()),
+                      ).then((_) {
+                        setState(() {
+                          addPredatoravailable = true; // Mark predator as added
+                        });
+                      });
+                    },
+                    child: buildAddContainer(context, "Add a predator",
+                        const Color(0xffE5182B), Colors.white),
+                  ),
                 SizedBox(height: height * 0.02),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
+                if (!AddVictimavailable)
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
                         context,
-                        CupertinoPageRoute(
-                          builder: (context) => const Home(
-                            title: "",
-                            description: '',
-                          ),
-                        ));
-                  },
-                  child: buildAddContainer(context, "Add a victim",
-                      const Color(0xffABABAB), const Color(0xff585858)),
-                ),
+                        CupertinoPageRoute(builder: (context) => AddVictim()),
+                      ).then((_) {
+                        setState(() {
+                          AddVictimavailable = true; // Mark victim as added
+                        });
+                      });
+                    },
+                    child: buildAddContainer(context, "Add a victim",
+                        const Color(0xffABABAB), const Color(0xff585858)),
+                  ),
+                if (addPredatoravailable && AddVictimavailable)
+                  GestureDetector(
+                    onTap: () {
+                      if (titleController.text.isNotEmpty &&
+                          descriptionController.text.isNotEmpty) {
+                        Navigator.pop(
+                            context,
+                            Ecosystem(
+                                title: titleController.text,
+                                description: descriptionController.text));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text("Please fill in all fields")),
+                        );
+                      }
+                    },
+                    child: buildAddContainer(context, "View connection",
+                        const Color(0xff4CAF50), Colors.white),
+                  ),
               ],
-            )
+            ),
           ],
         ),
       )),

@@ -4,6 +4,7 @@ class Ecosystem {
   final Predator? predator = null;
   Ecosystem({required this.title, required this.description});
   final Victim? victim = null;
+  final Connection? connection = null;
 }
 
 class Predator {
@@ -32,4 +33,9 @@ class Victim {
       required this.description,
       required this.food,
       required this.type});
+}
+
+class Connection {
+  final String connection;
+  Connection({required this.connection});
 }

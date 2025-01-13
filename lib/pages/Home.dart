@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/ecosystem.dart';
 import 'package:molah_animals_ecosystem/pages/add_page.dart';
+import 'package:molah_animals_ecosystem/pages/details_add_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key, required this.title, required this.description});
@@ -36,7 +37,15 @@ class _HomeState extends State<Home> {
                           style: TextStyle(fontSize: 16),
                         ),
                       )
-                    : buildGrid(),
+                    : GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => DetailsAddPage(),
+                              ));
+                        },
+                        child: buildGrid()),
               ),
               Align(
                 alignment: Alignment.bottomRight,

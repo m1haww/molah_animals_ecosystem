@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/pages/add_victim.dart';
 
 Widget buildContainer(BuildContext context, VoidCallback onTap) {
   final height = MediaQuery.of(context).size.height;
@@ -67,7 +65,7 @@ Widget buildNextbuton(BuildContext context) {
   return const Padding(
     padding: EdgeInsets.only(right: 20.0),
     child: Text(
-      "Next",
+      "Save",
       style: TextStyle(color: Color(0xffE5182B), fontSize: 17),
     ),
   );
