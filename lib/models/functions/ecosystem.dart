@@ -1,10 +1,10 @@
 class Ecosystem {
   final String title;
   final String description;
-  final Predator? predator = null;
+  Predator? predator = null;
   Ecosystem({required this.title, required this.description});
-  final Victim? victim = null;
-  final Connection? connection = null;
+  Victim? victim = null;
+  Connection? connection = null;
 }
 
 class Predator {

@@ -8,6 +8,8 @@ import 'package:molah_animals_ecosystem/models/functions/food_function.dart';
 import 'package:molah_animals_ecosystem/pages/add_pages/add_victim.dart';
 
 class AddPredator extends StatefulWidget {
+  const AddPredator({super.key});
+
   @override
   State<AddPredator> createState() => _AddPredatorState();
 }
@@ -26,7 +28,7 @@ class _AddPredatorState extends State<AddPredator> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: buildIconBack(context),
+        // leading: buildIconBack(context),
         actions: [
           GestureDetector(
               onTap: () {

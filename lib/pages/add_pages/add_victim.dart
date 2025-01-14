@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/Click.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/models/container_check.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/models/functions/food_function.dart';
-import 'package:molah_animals_ecosystem/pages/Home.dart';
-import 'package:molah_animals_ecosystem/pages/add_pages/add_predator.dart';
 
 class AddVictim extends StatefulWidget {
   const AddVictim({super.key});
@@ -28,7 +25,7 @@ class _AddVictimState extends State<AddVictim> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: buildIconBack(context),
+        // leading: buildIconBack(context),
         actions: [
           GestureDetector(
               onTap: () {

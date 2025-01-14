@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 
@@ -15,7 +14,7 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: buildIconBack(context),
+        // leading: buildIconBack(context),
         actions: [buildNextbuton("Edit")],
       ),
       body: SafeArea(

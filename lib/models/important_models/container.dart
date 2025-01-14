@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 
 Widget buildContainer(BuildContext context, VoidCallback onTap) {
   final height = MediaQuery.of(context).size.height;
@@ -33,11 +34,11 @@ Widget buildText(String text) {
   );
 }
 
-Widget buildIconBack(BuildContext context) {
+Widget buildIconBack(BuildContext context, VoidCallback onTap) {
   final height = MediaQuery.of(context).size.height;
   return GestureDetector(
     onTap: () {
-      Navigator.pop(context);
+      onTap();
     },
     child: Padding(
       padding: const EdgeInsets.only(left: 20.0),
@@ -48,13 +49,6 @@ Widget buildIconBack(BuildContext context) {
             Icons.arrow_back_ios,
             color: Color(0xffE5182B),
           ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          const Text(
-            "Back",
-            style: TextStyle(color: Color(0xffE5182B), fontSize: 17),
-          ),
         ],
       ),
     ),
@@ -63,10 +57,10 @@ Widget buildIconBack(BuildContext context) {
 
 Widget buildNextbuton(String text) {
   return Padding(
-    padding: EdgeInsets.only(right: 20.0),
+    padding: const EdgeInsets.only(right: 20.0),
     child: Text(
       text,
-      style: TextStyle(color: Color(0xffE5182B), fontSize: 17),
+      style: const TextStyle(color: Color(0xffE5182B), fontSize: 17),
     ),
   );
 }
@@ -146,7 +140,10 @@ Widget buildTextforme(String text) {
   );
 }
 
-Widget buildDetailsContainer(BuildContext context) {
+Widget buildDetailsContainer(
+  BuildContext context,
+  final String name,
+) {
   final width = MediaQuery.of(context).size.width;
   final height = MediaQuery.of(context).size.height;
 
@@ -162,7 +159,7 @@ Widget buildDetailsContainer(BuildContext context) {
         ),
       ],
     ),
-    padding: const EdgeInsets.all(8.0),
+    padding: EdgeInsets.all(8.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -175,9 +172,9 @@ Widget buildDetailsContainer(BuildContext context) {
           ),
         ),
         SizedBox(height: height * 0.02),
-        const Text(
-          "Wolf",
-          style: const TextStyle(
+        Text(
+          name,
+          style: TextStyle(
             color: Colors.black,
             fontSize: 16,
           ),

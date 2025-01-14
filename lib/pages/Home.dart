@@ -37,15 +37,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(fontSize: 16),
                         ),
                       )
-                    : GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => DetailsAddPage(),
-                              ));
-                        },
-                        child: buildGrid()),
+                    : buildGrid(),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -54,7 +46,7 @@ class _HomeState extends State<Home> {
                     final result = await Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const AddPage(),
+                        builder: (context) => AddPage(),
                       ),
                     );
                     if (result != null && result is Ecosystem) {
@@ -87,40 +79,51 @@ class _HomeState extends State<Home> {
       ),
       itemCount: ecosystemItems.length,
       itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(width: 2),
-                  image: const DecorationImage(
-                    image: AssetImage("images/nature.jpeg"),
-                    fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => DetailsAddPage(
+                    ecosystem: ecosystemItems[index],
+                  ),
+                ));
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(width: 2),
+                    image: const DecorationImage(
+                      image: AssetImage("images/nature.jpeg"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  color: Colors.white,
-                  width: double.infinity,
-                  height: height * 0.04,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      ecosystemItems[index].title,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    color: Colors.white,
+                    width: double.infinity,
+                    height: height * 0.04,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        ecosystemItems[index].title,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
