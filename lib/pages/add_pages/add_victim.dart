@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/Click.dart';
-import 'package:molah_animals_ecosystem/models/container.dart';
+import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/models/container_check.dart';
-import 'package:molah_animals_ecosystem/models/ecosystem.dart';
-import 'package:molah_animals_ecosystem/models/food_function.dart';
+import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
+import 'package:molah_animals_ecosystem/models/functions/food_function.dart';
 import 'package:molah_animals_ecosystem/pages/Home.dart';
-import 'package:molah_animals_ecosystem/pages/add_predator.dart';
+import 'package:molah_animals_ecosystem/pages/add_pages/add_predator.dart';
 
 class AddVictim extends StatefulWidget {
   const AddVictim({super.key});
@@ -41,7 +41,7 @@ class _AddVictimState extends State<AddVictim> {
                         food: getFoodSelection(_selectedClickIndex),
                         type: getTypeSelection(_selectedIndex)));
               },
-              child: buildNextbuton(context))
+              child: buildNextbuton("Save"))
         ],
       ),
       body: SingleChildScrollView(
@@ -55,7 +55,7 @@ class _AddVictimState extends State<AddVictim> {
                 SizedBox(height: height * 0.02),
                 const Image(image: AssetImage("images/add.png")),
                 SizedBox(height: height * 0.02),
-                buildTextOptinal("Information about the victim"),
+                buildTextOptinal2("Information about the victim"),
                 SizedBox(height: height * 0.02),
                 buildTextField("Name of the ecosystem",
                     controller: name_of_the_animalController),
@@ -65,7 +65,7 @@ class _AddVictimState extends State<AddVictim> {
                 buildTextField("Description",
                     controller: descriptionController),
                 SizedBox(height: height * 0.02),
-                buildTextOptinal("Food (optional)"),
+                buildTextOptinal2("Food (optional)"),
                 SizedBox(height: height * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +95,7 @@ class _AddVictimState extends State<AddVictim> {
                   ],
                 ),
                 SizedBox(height: height * 0.02),
-                buildTextOptinal("Type"),
+                buildTextOptinal2("Type"),
                 SizedBox(height: height * 0.02),
                 ContainerCheck(
                   text: "Producers",

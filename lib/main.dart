@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/models/navigation_page.dart';
+import 'package:molah_animals_ecosystem/models/intro_pages/navigation_page.dart';
 import 'package:molah_animals_ecosystem/pages/appProvider/appProvider.dart';
+import 'package:molah_animals_ecosystem/pages/details_pages/details_add_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: NavigationPage(),
     );

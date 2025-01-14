@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/models/ecosystem.dart';
+import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 
 class EcosystemProvider extends ChangeNotifier {
   final List<Predator> _predators = [];

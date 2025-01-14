@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/models/container.dart';
-import 'package:molah_animals_ecosystem/models/ecosystem.dart';
+import 'package:molah_animals_ecosystem/models/important_models/container.dart';
+import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/pages/Home.dart';
-import 'package:molah_animals_ecosystem/pages/add_predator.dart';
-import 'package:molah_animals_ecosystem/pages/add_victim.dart';
+import 'package:molah_animals_ecosystem/pages/add_pages/add_predator.dart';
+import 'package:molah_animals_ecosystem/pages/add_pages/add_victim.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
