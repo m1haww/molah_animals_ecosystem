@@ -1,10 +1,11 @@
 class Ecosystem {
   final String title;
   final String description;
-  Predator? predator = null;
   Ecosystem({required this.title, required this.description});
-  Victim? victim = null;
-  Connection? connection = null;
+  Predator? predator;
+  Victim? victim;
+  Connection? connection;
+  Animals? animals;
 }
 
 class Predator {
@@ -38,4 +39,17 @@ class Victim {
 class Connection {
   final String connection;
   Connection({required this.connection});
+}
+
+class Animals {
+  final String name;
+  final String type;
+  final String optional;
+  final String date;
+
+  Animals(
+      {required this.name,
+      required this.type,
+      required this.optional,
+      required this.date});
 }
