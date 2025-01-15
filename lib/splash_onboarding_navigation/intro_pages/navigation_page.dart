@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/animal/animal_page.dart';
 import 'package:molah_animals_ecosystem/events/events_page.dart';
-import 'package:molah_animals_ecosystem/pages/home/Home.dart';
+import 'package:molah_animals_ecosystem/home/Home.dart';
 import 'package:molah_animals_ecosystem/profile/profile_page.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -21,17 +21,11 @@ class _NavigationPageState extends State<NavigationPage> {
   var profileImage; // Can be File or Uint8List
 
   final List<Widget> _tabViews = [
-    const Home(
-      title: '',
-      description: '',
-    ),
+    Home(),
     AnimalsPage(),
     EventsPage(),
     EventsPage(),
-    ProfilePage(
-      name: '',
-      surname: '',
-    ),
+    ProfilePage(),
   ];
 
   final List<String> _tabIcons = [
@@ -42,7 +36,7 @@ class _NavigationPageState extends State<NavigationPage> {
     "images/iconamoon_profile-fill.png",
   ];
 
-  final Color _selectedColor = Color(0xFFE5182B);
+  final Color _selectedColor = const Color(0xFFE5182B);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +70,7 @@ class _NavigationPageState extends State<NavigationPage> {
       colorFilter: _currentIndex == index
           ? ColorFilter.mode(
               _selectedColor, BlendMode.srcIn) // Red color on select
-          : ColorFilter.mode(
+          : const ColorFilter.mode(
               Colors.grey, BlendMode.srcIn), // Grey color for unselected
       child: Image.asset(
         _tabIcons[index],

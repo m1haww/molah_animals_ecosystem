@@ -92,7 +92,7 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
         }),
         actions: [
           GestureDetector(
-              child: buildNextbuton("Next"), onTap: _handleNextButton)
+              onTap: _handleNextButton, child: buildNextbuton("Next"))
         ],
       ),
       body: SafeArea(

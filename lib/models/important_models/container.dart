@@ -361,7 +361,7 @@ Widget buildEditButon(BuildContext context) {
       Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => ProfileEditPage(),
+            builder: (context) => const ProfileEditPage(),
           ));
     },
     child: Container(
@@ -376,9 +376,9 @@ Widget buildEditButon(BuildContext context) {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10.0, left: 10),
-        child: const Row(
+      child: const Padding(
+        padding: EdgeInsets.only(right: 10.0, left: 10),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(

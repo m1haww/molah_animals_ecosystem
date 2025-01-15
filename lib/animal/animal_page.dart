@@ -8,6 +8,8 @@ import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:provider/provider.dart';
 
 class AnimalsPage extends StatefulWidget {
+  const AnimalsPage({super.key});
+
   @override
   State<AnimalsPage> createState() => _AnimalsPageState();
 }

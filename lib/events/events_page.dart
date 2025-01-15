@@ -9,6 +9,8 @@ import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:provider/provider.dart';
 
 class EventsPage extends StatefulWidget {
+  const EventsPage({super.key});
+
   @override
   State<EventsPage> createState() => _EventsPageState();
 }
@@ -56,7 +58,7 @@ class _EventsPageState extends State<EventsPage> {
                     final result = await Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => EventsAddPage(),
+                        builder: (context) => const EventsAddPage(),
                       ),
                     );
                     if (result != null && result is Ecosystem) {

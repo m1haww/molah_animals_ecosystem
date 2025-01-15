@@ -53,3 +53,11 @@ class Animals {
       required this.optional,
       required this.date});
 }
+
+class Profile {
+  final String name;
+  final String surname;
+  final String image;
+
+  Profile({required this.name, required this.surname, required this.image});
+}

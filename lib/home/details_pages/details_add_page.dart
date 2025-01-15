@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/home/details_pages/details_about_animals.dart';
+import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 
 class DetailsAddPage extends StatefulWidget {
@@ -40,31 +40,30 @@ class _DetailsAddPageState extends State<DetailsAddPage> {
               SizedBox(
                 height: height * 0.02,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // if (widget.ecosystem.victim != null &&
-                  //     widget.ecosystem.predator != null)
-                  //   GestureDetector(
-                  //       onTap: () {
-                  //         Navigator.push(
-                  //             context,
-                  //             CupertinoPageRoute(
-                  //               builder: (context) =>
-                  //                   const DetailsAboutAnimals(),
-                  //             ));
-                  //       },
-                  //       child: buildDetailsContainer(
-                  //         context,
-                  //         widget.ecosystem.predator!.name,
-                  //       )),
-                  // ClipOval(
-                  //   child: Image.asset(
-                  //     "images/111.png",
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
-                  // buildDetailsContainer(context, widget.ecosystem.victim!.name)
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => DetailsAboutAnimals(
+                                predator: widget.ecosystem.predator!,
+                              ),
+                            ));
+                      },
+                      child: buildDetailsContainer(
+                        context,
+                        widget.ecosystem.predator!.name,
+                      )),
+                  ClipOval(
+                    child: Image.asset(
+                      "images/111.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  buildDetailsContainer(context, widget.ecosystem.victim!.name)
                 ],
               )
             ],

@@ -4,16 +4,13 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
+import 'package:molah_animals_ecosystem/home/Home.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  final String name;
-  final String surname;
-  final dynamic image;
-
-  const ProfilePage(
-      {super.key, required this.name, required this.surname, this.image});
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -54,6 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final counterModel = Provider.of<EcosystemProvider>(context);
+
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -82,12 +81,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: height * 0.02,
               ),
               Text(
-                widget.name,
-                style: TextStyle(fontSize: 22, color: Colors.black),
+                counterModel.profile?.name ?? "Name",
+                style: const TextStyle(fontSize: 22, color: Colors.black),
               ),
               Text(
-                widget.surname,
-                style: TextStyle(fontSize: 22, color: Colors.black),
+                counterModel.profile?.surname ?? "Surname",
+                style: const TextStyle(fontSize: 22, color: Colors.black),
               ),
               SizedBox(
                 height: height * 0.03,
@@ -100,8 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 "My Ecosystems",
                 style: TextStyle(fontSize: 15, color: Colors.black),
               ),
+              SizedBox(height: height * 0.2, child: buildGrid(context)),
               SizedBox(
-                height: height * 0.02,
+                height: height * 0.08,
               ),
               const Text(
                 "My Ecosystems",
