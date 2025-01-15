@@ -139,9 +139,13 @@ Widget buildTextOptinal2(String text) {
   );
 }
 
-Widget buildTextforme(String text) {
-  return Text(
-    text,
+Widget buildTextFormField(String hintText, TextEditingController controller) {
+  return TextField(
+    controller: controller,
+    decoration: InputDecoration(
+      hintText: hintText,
+      border: OutlineInputBorder(),
+    ),
     style: const TextStyle(fontSize: 17, color: Colors.black),
   );
 }

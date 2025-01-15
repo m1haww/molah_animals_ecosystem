@@ -12,6 +12,12 @@ class DetailsAboutAnimals extends StatefulWidget {
 }
 
 class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
+  final TextEditingController habitatController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController habitatController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController habitatController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -64,27 +70,27 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildTextOptinal("Type of animal"),
-            buildTextforme(widget.predator.name),
+            buildTextFormField(widget.predator.name, type),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Type"),
-            buildTextforme(widget.predator.type),
+            buildTextFormField(widget.predator.type),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Habitat"),
-            buildTextforme("text"),
+            buildTextFormField("text"),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Food"),
-            buildTextforme("text"),
+            buildTextFormField("text"),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Description"),
-            buildTextforme("text"),
+            buildTextFormField("text"),
             SizedBox(
               height: height * 0.02,
             ),
