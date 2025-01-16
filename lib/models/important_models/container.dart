@@ -139,14 +139,12 @@ Widget buildTextOptinal2(String text) {
   );
 }
 
-Widget buildTextFormField(String hintText, TextEditingController controller) {
-  return TextField(
-    controller: controller,
-    decoration: InputDecoration(
-      hintText: hintText,
-      border: OutlineInputBorder(),
+Widget buildContainerdetailsAnimals(BuildContext context, String text) {
+  return Container(
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 17, color: Colors.black),
     ),
-    style: const TextStyle(fontSize: 17, color: Colors.black),
   );
 }
 
@@ -207,56 +205,56 @@ Widget buildImage(BuildContext context) {
   );
 }
 
-Widget buildBigContainerDetails(BuildContext context) {
-  final height = MediaQuery.of(context).size.height;
+// Widget buildBigContainerDetails(BuildContext context) {
+//   final height = MediaQuery.of(context).size.height;
 
-  return Container(
-    width: double.infinity,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.1),
-          blurRadius: 3,
-          offset: const Offset(0, 1),
-        ),
-      ],
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildTextOptinal("Type of animal"),
-          buildTextforme("text"),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          buildTextOptinal("Type"),
-          buildTextforme("text"),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          buildTextOptinal("Habitat"),
-          buildTextforme("text"),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          buildTextOptinal("Food"),
-          buildTextforme("text"),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          buildTextOptinal("Description"),
-          buildTextforme("text"),
-          SizedBox(
-            height: height * 0.02,
-          ),
-        ],
-      ),
-    ),
-  );
-}
+//   return Container(
+//     width: double.infinity,
+//     decoration: BoxDecoration(
+//       borderRadius: BorderRadius.circular(12),
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.grey.withOpacity(0.1),
+//           blurRadius: 3,
+//           offset: const Offset(0, 1),
+//         ),
+//       ],
+//     ),
+//     child: Padding(
+//       padding: const EdgeInsets.all(10.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           buildTextOptinal("Type of animal"),
+//           buildTextforme("text"),
+//           SizedBox(
+//             height: height * 0.02,
+//           ),
+//           buildTextOptinal("Type"),
+//           buildTextforme("text"),
+//           SizedBox(
+//             height: height * 0.02,
+//           ),
+//           buildTextOptinal("Habitat"),
+//           buildTextforme("text"),
+//           SizedBox(
+//             height: height * 0.02,
+//           ),
+//           buildTextOptinal("Food"),
+//           buildTextforme("text"),
+//           SizedBox(
+//             height: height * 0.02,
+//           ),
+//           buildTextOptinal("Description"),
+//           buildTextforme("text"),
+//           SizedBox(
+//             height: height * 0.02,
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }
 
 Widget buildContainerOpen(BuildContext context, final String text,
     void Function(DateTime selectedDate) handleDateSelection) {

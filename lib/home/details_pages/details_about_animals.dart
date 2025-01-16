@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
-import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 
 class DetailsAboutAnimals extends StatefulWidget {
   final Predator predator;
@@ -12,46 +11,37 @@ class DetailsAboutAnimals extends StatefulWidget {
 }
 
 class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
-  final TextEditingController habitatController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController habitatController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController habitatController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        // leading: buildIconBack(context),
         actions: [buildNextbuton("Edit")],
       ),
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildText("Wolf"),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            buildImage(
-              context,
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            buildBigContainerDetails(context),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildText(widget.predator.name),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              buildImage(context),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              buildBigContainerDetails(context),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 
   Widget buildBigContainerDetails(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -70,31 +60,83 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildTextOptinal("Type of animal"),
-            buildTextFormField(widget.predator.name, type),
+            buildContainerdetailsAnimals(widget.predator.name),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Type"),
-            buildTextFormField(widget.predator.type),
+            buildContainerdetailsAnimals(widget.predator.type),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Habitat"),
-            buildTextFormField("text"),
+            buildContainerdetailsAnimals(widget.predator.habitat),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Food"),
-            buildTextFormField("text"),
+            buildContainerdetailsAnimals(widget.predator.food),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Description"),
-            buildTextFormField("text"),
+            buildContainerdetailsAnimals(widget.predator.description),
             SizedBox(
               height: height * 0.02,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  // Helper methods for building widgets
+  Widget buildText(String text) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget buildTextOptinal(String text) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+    );
+  }
+
+  Widget buildContainerdetailsAnimals(String text) {
+    return Container(
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 17, color: Colors.black),
+      ),
+    );
+  }
+
+  Widget buildImage(BuildContext context) {
+    return Container(
+      height: 200,
+      width: double.infinity,
+      color: Colors.grey[300], // Placeholder for an image
+      child: Center(
+        child: Icon(
+          Icons.image,
+          size: 50,
+          color: Colors.black54,
+        ),
+      ),
+    );
+  }
+
+  Widget buildNextbuton(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          text,
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

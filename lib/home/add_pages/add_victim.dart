@@ -64,7 +64,7 @@ class _AddVictimState extends State<AddVictim> {
                 SizedBox(height: height * 0.02),
                 buildTextOptinal2("Information about the victim"),
                 SizedBox(height: height * 0.02),
-                buildTextField("Name of the ecosystem",
+                buildTextField("Name of the animal",
                     controller: name_of_the_animalController),
                 SizedBox(height: height * 0.02),
                 buildTextField("Habitat", controller: habitatController),

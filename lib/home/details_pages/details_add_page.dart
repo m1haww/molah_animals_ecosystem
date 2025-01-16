@@ -49,8 +49,7 @@ class _DetailsAddPageState extends State<DetailsAddPage> {
                             context,
                             CupertinoPageRoute(
                               builder: (context) => DetailsAboutAnimals(
-                                predator: widget.ecosystem.predator!,
-                              ),
+                                  predator: widget.ecosystem.predator!),
                             ));
                       },
                       child: buildDetailsContainer(
