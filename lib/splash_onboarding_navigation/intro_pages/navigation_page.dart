@@ -4,6 +4,7 @@ import 'package:molah_animals_ecosystem/animal/animal_page.dart';
 import 'package:molah_animals_ecosystem/events/events_page.dart';
 import 'package:molah_animals_ecosystem/home/Home.dart';
 import 'package:molah_animals_ecosystem/profile/profile_page.dart';
+import 'package:molah_animals_ecosystem/quiz/DifficultySelectionPage.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
@@ -24,7 +25,7 @@ class _NavigationPageState extends State<NavigationPage> {
     Home(),
     AnimalsPage(),
     EventsPage(),
-    EventsPage(),
+    DifficultySelectionPage(),
     ProfilePage(),
   ];
 

@@ -3,8 +3,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart'; // For image selection
-import 'package:molah_animals_ecosystem/models/important_models/container.dart'; // Assuming buildContainerOpen and other imports are correct
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
+import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
+import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
+import 'package:molah_animals_ecosystem/models/important_models/container.dart';
+import 'package:provider/provider.dart';
 
 class AnimalAddPage extends StatefulWidget {
   const AnimalAddPage({super.key});
@@ -19,20 +23,46 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
   final TextEditingController typeController = TextEditingController();
   final TextEditingController optionalController = TextEditingController();
 
+  Ecosystem? ecosystem;
   DateTime? _selectedDateOfBirth;
 
-  File? _selectedImage; // For mobile
+  File? _selectedImage;
   Uint8List? _imageData; // For web
   final ImagePicker _picker = ImagePicker();
+  bool _isSaveEnabled = false;
 
-  // Function to handle the selected date from the bottom sheet
-  void _handleDateSelection(DateTime selectedDate) {
+  @override
+  void initState() {
+    super.initState();
+    // Add listeners to controllers to update save button state
+    name_of_the_animalController.addListener(_updateSaveButtonState);
+    typeController.addListener(_updateSaveButtonState);
+    optionalController.addListener(_updateSaveButtonState);
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers and listeners
+    name_of_the_animalController.dispose();
+    typeController.dispose();
+    optionalController.dispose();
+    super.dispose();
+  }
+
+  void _updateSaveButtonState() {
     setState(() {
-      _selectedDateOfBirth = selectedDate; // Save the selected date
+      _isSaveEnabled = name_of_the_animalController.text.isNotEmpty &&
+          typeController.text.isNotEmpty &&
+          optionalController.text.isNotEmpty;
     });
   }
 
-  // Function to pick image
+  void _handleDateSelection(DateTime selectedDate) {
+    setState(() {
+      _selectedDateOfBirth = selectedDate;
+    });
+  }
+
   Future<void> _pickImage() async {
     final XFile? pickedImage =
         await _picker.pickImage(source: ImageSource.gallery);
@@ -55,32 +85,6 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
     }
   }
 
-  // For next button
-  void _handleNextButton() {
-    if (name_of_the_animalController.text.isEmpty ||
-        typeController.text.isEmpty ||
-        optionalController.text.isEmpty ||
-        _selectedDateOfBirth == null) {
-      // Show an error if any field is empty
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please fill all fields")),
-      );
-      return;
-    }
-
-    // Create an object or a map to pass back all the data
-    final animalData = {
-      'name': name_of_the_animalController.text,
-      'breed': typeController.text,
-      'optional': optionalController.text,
-      'dob': _selectedDateOfBirth,
-      'image': _selectedImage, // Add image data
-    };
-
-    // Pop the current page and pass the data back to AnimalsPage
-    Navigator.pop(context, animalData);
-  }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -88,26 +92,46 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
     return Scaffold(
       appBar: AppBar(
         leading: buildIconBack(context, () {
+          if (ecosystem != null && ecosystem?.addAnimal != null) {
+            final counterModel =
+                Provider.of<EcosystemProvider>(context, listen: false);
+            counterModel.addEcosystem(ecosystem!);
+          }
           Navigator.pop(context);
         }),
         actions: [
           GestureDetector(
-              onTap: _handleNextButton, child: buildNextbuton("Next"))
+            onTap: _isSaveEnabled
+                ? () {
+                    final formattedDate = _selectedDateOfBirth != null
+                        ? DateFormat('yyyy-MM-dd').format(_selectedDateOfBirth!)
+                        : 'Not selected';
+                    Navigator.pop(
+                        context,
+                        AddAnimal(
+                          name: name_of_the_animalController.text,
+                          type: typeController.text,
+                          optional: optionalController.text,
+                          birth: formattedDate,
+                        ));
+                  }
+                : null,
+            child: buildNextbuton(
+              "Save",
+            ),
+          )
         ],
       ),
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildText("Add animal"),
-
-              SizedBox(
-                height: height * 0.04,
-              ),
-              GestureDetector(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildText("Add animal"),
+                SizedBox(height: height * 0.04),
+                GestureDetector(
                   onTap: _pickImage,
                   child: _selectedImage == null
                       ? const Image(image: AssetImage("images/add.png"))
@@ -116,44 +140,35 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
                               ? Image.memory(_imageData!)
                               : const Image(
                                   image: AssetImage("images/add.png")))
-                          : Image.file(_selectedImage!))),
-              SizedBox(
-                height: height * 0.04,
-              ),
-              buildTextField("The name of the animal ",
-                  controller: name_of_the_animalController),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              buildTextField("The breed of the animal (optional) ",
-                  controller: typeController),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              buildTextField("The name of the animal ",
-                  controller: optionalController),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              buildContainerOpen(
-                context,
-                "Date of birth",
-                _handleDateSelection, // Pass the callback to handle date selection
-              ),
-              // Optionally, display the selected date
-              if (_selectedDateOfBirth != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child:
-                      Text("Selected Date: ${_selectedDateOfBirth!.toLocal()}"),
+                          : Image.file(_selectedImage!)),
                 ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-            ],
+                SizedBox(height: height * 0.04),
+                buildTextField("The name of the animal ",
+                    controller: name_of_the_animalController),
+                SizedBox(height: height * 0.02),
+                buildTextField("Type of animal", controller: typeController),
+                SizedBox(height: height * 0.02),
+                buildTextField("The breed of the animal (optional) ",
+                    controller: optionalController),
+                SizedBox(height: height * 0.02),
+                buildContainerOpen(
+                  context,
+                  "Date of birth",
+                  _handleDateSelection,
+                ),
+                if (_selectedDateOfBirth != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      "Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDateOfBirth!)}",
+                    ),
+                  ),
+                SizedBox(height: height * 0.02),
+              ],
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }

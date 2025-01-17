@@ -6,6 +6,7 @@ class Ecosystem {
   Victim? victim;
   Connection? connection;
   Animals? animals;
+  AddAnimal? addAnimal;
 }
 
 class Predator {
@@ -60,4 +61,17 @@ class Profile {
   final String image;
 
   Profile({required this.name, required this.surname, required this.image});
+}
+
+class AddAnimal {
+  final String name;
+  final String type;
+  final String optional;
+  final String birth;
+
+  AddAnimal(
+      {required this.name,
+      required this.type,
+      required this.optional,
+      required this.birth});
 }

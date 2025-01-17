@@ -6,12 +6,13 @@ class EcosystemProvider extends ChangeNotifier {
   final List<Victim> _victims = [];
   final List<Ecosystem> _ecosystems = [];
   final List<Animals> _animals = [];
-
+  final List<AddAnimal> _addanimals = [];
   // Getters
   List<Predator> get predators => _predators;
   List<Victim> get victims => _victims;
   List<Ecosystem> get ecosystems => _ecosystems;
   List<Animals> get animals => _animals;
+  List<AddAnimal> get addanimal => _addanimals;
   Profile? profile;
   // Methods to manage Predators
   void addPredator(Predator predator) {
