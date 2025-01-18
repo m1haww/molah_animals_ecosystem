@@ -143,7 +143,7 @@ Widget buildContainerdetailsAnimals(BuildContext context, String text) {
   return Container(
     child: Text(
       text,
-      style: TextStyle(fontSize: 17, color: Colors.black),
+      style: const TextStyle(fontSize: 17, color: Colors.black),
     ),
   );
 }

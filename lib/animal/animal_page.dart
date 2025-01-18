@@ -9,20 +9,30 @@ import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:provider/provider.dart';
 
 class AnimalsPage extends StatefulWidget {
-  Widget buildGrid(
+  const AnimalsPage({super.key});
+
+  @override
+  State<AnimalsPage> createState() => _AnimalsPageState();
+}
+
+class _AnimalsPageState extends State<AnimalsPage> {
+  Widget buildGridanimal(
     BuildContext context,
   ) {
     final height = MediaQuery.of(context).size.height;
     final counterModel = Provider.of<EcosystemProvider>(context);
-
+    print(
+      counterModel.addanimal.length,
+    );
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 3,
-        mainAxisSpacing: 5,
+        crossAxisSpacing: 8, // Increased space between items
+        mainAxisSpacing: 12, // Increased space between items
       ),
       itemCount: counterModel.addanimal.length,
       itemBuilder: (context, index) {
+        print(counterModel.addanimal[index].name);
         return GestureDetector(
           onTap: () {
             Navigator.push(
@@ -35,44 +45,75 @@ class AnimalsPage extends StatefulWidget {
             );
           },
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(18), // Rounded corners
             child: Stack(
               children: [
+                // Image with gradient overlay
                 Container(
-                  width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 2),
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(
+                        width: 2, color: Colors.white.withOpacity(0.3)),
                     image: const DecorationImage(
                       image: AssetImage("images/nature.jpeg"),
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
                   child: Container(
-                    color: Colors.white,
-                    width: double.infinity,
-                    height: height * 0.04,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            counterModel.addanimal[index].name,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(counterModel.addanimal[index].birth),
-                          Container(
-                            child: Text(counterModel.addanimal[index].type),
-                          )
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black.withOpacity(0.4),
+                          Colors.transparent
                         ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
+                    ),
+                  ),
+                ),
+                // Text overlay on image
+                Positioned(
+                  bottom: 10,
+                  left: 10,
+                  right: 10,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 6.0),
+                    decoration: BoxDecoration(
+                      color: Colors.black
+                          .withOpacity(0.6), // Dark background for text
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          counterModel.addanimal[index].name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          counterModel.addanimal[index].birth,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          counterModel.addanimal[index].type,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -84,13 +125,6 @@ class AnimalsPage extends StatefulWidget {
     );
   }
 
-  const AnimalsPage({super.key});
-
-  @override
-  State<AnimalsPage> createState() => _AnimalsPageState();
-}
-
-class _AnimalsPageState extends State<AnimalsPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -106,8 +140,9 @@ class _AnimalsPageState extends State<AnimalsPage> {
               buildText("Animals"),
               SizedBox(height: height * 0.02),
               Expanded(
-                child: Consumer<EcosystemProvider>(
-                  builder: (context, provider, child) {
+                child: Builder(
+                  builder: (context) {
+                    final provider = Provider.of<EcosystemProvider>(context);
                     final AddAnimal = provider.addanimal;
                     return AddAnimal.isEmpty
                         ? Center(
@@ -122,7 +157,7 @@ class _AnimalsPageState extends State<AnimalsPage> {
                               ),
                             ),
                           )
-                        : buildGrid(context);
+                        : buildGridanimal(context);
                   },
                 ),
               ),
@@ -136,10 +171,7 @@ class _AnimalsPageState extends State<AnimalsPage> {
                         builder: (context) => const AnimalAddPage(),
                       ),
                     );
-                    if (result != null && result is Ecosystem) {
-                      Provider.of<EcosystemProvider>(context, listen: false)
-                          .addEcosystem(result);
-                    }
+                    setState(() {});
                   },
                   child: const Image(
                     image: AssetImage("images/Button.png"),

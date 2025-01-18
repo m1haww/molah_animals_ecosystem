@@ -25,7 +25,7 @@ class Question {
 List<Quiz> quizzes = [
   Quiz(
     title: "Forest Animals",
-    difficulty: "easy",
+    difficulty: "Easy",
     questions: [
       Question(
         question: "What is the largest predator in the forest?",
@@ -57,7 +57,7 @@ List<Quiz> quizzes = [
   ),
   Quiz(
     title: "Savanna Animals",
-    difficulty: "medium",
+    difficulty: "Medium",
     questions: [
       Question(
         question: "Who is considered the fastest land animal in the savanna?",
@@ -94,7 +94,7 @@ List<Quiz> quizzes = [
   ),
   Quiz(
     title: "Marine Creatures",
-    difficulty: "hard",
+    difficulty: "Hard",
     questions: [
       Question(
         question: "What is the largest mammal in the world?",
@@ -126,7 +126,7 @@ List<Quiz> quizzes = [
   ),
   Quiz(
     title: "Desert Animals",
-    difficulty: "medium",
+    difficulty: "Medium",
     questions: [
       Question(
         question: "Which desert animal can go a long time without water?",
@@ -157,7 +157,7 @@ List<Quiz> quizzes = [
   ),
   Quiz(
     title: "Arctic and Antarctic Animals",
-    difficulty: "hard",
+    difficulty: "Hard",
     questions: [
       Question(
         question: "What is the largest predator in the Arctic?",

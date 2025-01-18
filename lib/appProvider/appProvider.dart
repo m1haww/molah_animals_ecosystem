@@ -52,4 +52,9 @@ class EcosystemProvider extends ChangeNotifier {
     _animals.add(animals);
     notifyListeners();
   }
+
+  void addAddAnimal(AddAnimal addanimal) {
+    _addanimals.add(addanimal);
+    notifyListeners();
+  }
 }

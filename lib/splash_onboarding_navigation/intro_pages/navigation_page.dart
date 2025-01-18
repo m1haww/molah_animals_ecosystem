@@ -23,8 +23,8 @@ class _NavigationPageState extends State<NavigationPage> {
 
   final List<Widget> _tabViews = [
     Home(),
-    AnimalsPage(),
-    EventsPage(),
+    const AnimalsPage(),
+    const EventsPage(),
     DifficultySelectionPage(),
     ProfilePage(),
   ];

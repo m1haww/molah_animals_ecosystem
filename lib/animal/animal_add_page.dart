@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
   final TextEditingController typeController = TextEditingController();
   final TextEditingController optionalController = TextEditingController();
 
-  Ecosystem? ecosystem;
+  AddAnimal? addAnimal;
   DateTime? _selectedDateOfBirth;
 
   File? _selectedImage;
@@ -92,11 +91,6 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
     return Scaffold(
       appBar: AppBar(
         leading: buildIconBack(context, () {
-          if (ecosystem != null && ecosystem?.addAnimal != null) {
-            final counterModel =
-                Provider.of<EcosystemProvider>(context, listen: false);
-            counterModel.addEcosystem(ecosystem!);
-          }
           Navigator.pop(context);
         }),
         actions: [
@@ -106,14 +100,19 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
                     final formattedDate = _selectedDateOfBirth != null
                         ? DateFormat('yyyy-MM-dd').format(_selectedDateOfBirth!)
                         : 'Not selected';
+
+                    final counterModel =
+                        Provider.of<EcosystemProvider>(context, listen: false);
+
+                    counterModel.addAddAnimal(AddAnimal(
+                      name: name_of_the_animalController.text,
+                      type: typeController.text,
+                      optional: optionalController.text,
+                      birth: formattedDate,
+                    ));
                     Navigator.pop(
-                        context,
-                        AddAnimal(
-                          name: name_of_the_animalController.text,
-                          type: typeController.text,
-                          optional: optionalController.text,
-                          birth: formattedDate,
-                        ));
+                      context,
+                    );
                   }
                 : null,
             child: buildNextbuton(

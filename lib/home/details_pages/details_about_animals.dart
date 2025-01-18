@@ -94,14 +94,14 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
   Widget buildText(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
     );
   }
 
   Widget buildTextOptinal(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
     );
   }
 
@@ -109,7 +109,7 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
     return Container(
       child: Text(
         text,
-        style: TextStyle(fontSize: 17, color: Colors.black),
+        style: const TextStyle(fontSize: 17, color: Colors.black),
       ),
     );
   }
@@ -119,7 +119,7 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
       height: 200,
       width: double.infinity,
       color: Colors.grey[300], // Placeholder for an image
-      child: Center(
+      child: const Center(
         child: Icon(
           Icons.image,
           size: 50,
@@ -136,7 +136,7 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
         onPressed: () {},
         child: Text(
           text,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
