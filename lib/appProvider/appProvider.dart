@@ -7,7 +7,7 @@ class EcosystemProvider extends ChangeNotifier {
   final List<Ecosystem> _ecosystems = [];
   final List<AddAnimal> _addanimals = [];
   final List<EventsAnimal> _eventsanimal = [];
-  final List<Profile> _profile = [];
+
   // Getters
   List<Predator> get predators => _predators;
   List<Victim> get victims => _victims;
@@ -58,8 +58,8 @@ class EcosystemProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addProfile(Profile profile) {
-    _profile.add(profile);
+  void addProfile(Profile profileinfo) {
+    profile = profileinfo;
     notifyListeners();
   }
 }

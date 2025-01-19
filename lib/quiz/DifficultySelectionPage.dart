@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/models/functions/quiz.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/quiz/quiz_page.dart';
 

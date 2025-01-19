@@ -317,6 +317,7 @@ Widget buildContainerOpen(BuildContext context, final String text,
                                 setState(() {
                                   selectedDate = selectedDay;
                                 });
+                                handleDateSelection(selectedDate);
                               },
                               calendarStyle: const CalendarStyle(
                                 todayDecoration: BoxDecoration(
@@ -424,7 +425,7 @@ Widget buildGridanimal(
   final counterModel = Provider.of<EcosystemProvider>(context);
 
   return GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2, // Number of items in a row
       crossAxisSpacing: 8,
       mainAxisSpacing: 12,
@@ -463,7 +464,7 @@ Widget buildGridanimal(
               // Text Container
               Container(
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(18)),

@@ -33,6 +33,9 @@ class _QuizPageState extends State<QuizPage> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            leading: buildIconBack(context, () {
+              Navigator.pop(context);
+            }),
             title: buildText("Quiz"),
             centerTitle: false,
             elevation: 0,
@@ -67,88 +70,86 @@ class _QuizPageState extends State<QuizPage> {
                     minHeight: 8,
                   ),
                   SizedBox(height: height * 0.02),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, 4),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          quiz.questions[currentQuestionIndex].question,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            quiz.questions[currentQuestionIndex].question,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: height * 0.02),
-                          ...List.generate(
-                            4,
-                            (index) {
-                              String option = quiz
-                                  .questions[currentQuestionIndex]
-                                  .options[index];
-                              bool isCorrect = option ==
-                                  quiz.questions[currentQuestionIndex].answer;
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: height * 0.02),
+                        ...List.generate(
+                          4,
+                          (index) {
+                            String option = quiz
+                                .questions[currentQuestionIndex].options[index];
+                            bool isCorrect = option ==
+                                quiz.questions[currentQuestionIndex].answer;
 
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: ElevatedButton(
-                                  onPressed: isAnswered
-                                      ? null
-                                      : () {
-                                          _checkAnswer(option, isCorrect);
-                                        },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.black,
-                                    backgroundColor: Colors.white,
-                                    padding: const EdgeInsets.all(16),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                      side: BorderSide(
-                                        color: !isAnswered
-                                            ? Colors.white
-                                            : (selectedAnswer == option &&
-                                                    isCorrect)
-                                                ? Colors.green
-                                                : (selectedAnswer == option &&
-                                                        !isCorrect)
-                                                    ? Colors.red
-                                                    : Colors.white,
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      option,
-                                      style: const TextStyle(fontSize: 18),
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: ElevatedButton(
+                                onPressed: isAnswered
+                                    ? null
+                                    : () {
+                                        _checkAnswer(option, isCorrect);
+                                      },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  padding: const EdgeInsets.all(16),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    side: BorderSide(
+                                      color: !isAnswered
+                                          ? Colors.white
+                                          : (selectedAnswer == option &&
+                                                  isCorrect)
+                                              ? Colors.green
+                                              : (selectedAnswer == option &&
+                                                      !isCorrect)
+                                                  ? Colors.red
+                                                  : Colors.white,
+                                      width: 2.0,
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    option,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
+                  Spacer(),
                   GestureDetector(
                     onTap: () {
                       setState(() {

@@ -22,11 +22,11 @@ class _NavigationPageState extends State<NavigationPage> {
   var profileImage; // Can be File or Uint8List
 
   final List<Widget> _tabViews = [
-    Home(),
+    const Home(),
     const AnimalsPage(),
     const EventsPage(),
-    DifficultySelectionPage(),
-    ProfilePage(),
+    const DifficultySelectionPage(),
+    const ProfilePage(),
   ];
 
   final List<String> _tabIcons = [

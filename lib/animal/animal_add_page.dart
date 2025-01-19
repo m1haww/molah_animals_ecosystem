@@ -58,6 +58,7 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
   void _handleDateSelection(DateTime selectedDate) {
     setState(() {
       _selectedDateOfBirth = selectedDate;
+      addAnimal?.birth = _selectedDateOfBirth.toString();
     });
   }
 

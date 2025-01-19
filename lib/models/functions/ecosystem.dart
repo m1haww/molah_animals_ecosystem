@@ -11,7 +11,6 @@ class Ecosystem {
   Victim? victim;
   AddAnimal? addAnimal;
   EventsAnimal? eventsAnimal;
-  Profile? profile;
 }
 
 class Predator {
@@ -59,7 +58,7 @@ class AddAnimal {
   final ImageProvider image;
   final String type;
   final String optional;
-  final String birth;
+  String birth;
 
   AddAnimal(
       {required this.name,

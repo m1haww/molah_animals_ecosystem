@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/navigation_page.dart';
 import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
 import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/splash_screen.dart';
 import 'package:provider/provider.dart';

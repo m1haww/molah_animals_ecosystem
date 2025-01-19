@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -41,7 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final counterModel = Provider.of<EcosystemProvider>(context);
+
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
@@ -53,23 +54,24 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 const Text("Profile", style: TextStyle(fontSize: 22)),
                 SizedBox(height: height * 0.04),
-                _selectedImage == null
+                counterModel.profile == null
                     ? const Image(image: AssetImage("images/add.png"))
-                    : buildAvatar(
-                        context,
-                        _selectedImage != null
-                            ? FileImage(_selectedImage!)
-                            : MemoryImage(_imageData!),
-                      ),
-// Pass the correct image data
+                    : buildAvatar(context, counterModel.profile!.image),
                 SizedBox(height: height * 0.02),
-                Text(
-                  counterModel.profile?.name ?? "Name",
-                  style: const TextStyle(fontSize: 22, color: Colors.black),
-                ),
-                Text(
-                  counterModel.profile?.surname ?? "Surname",
-                  style: const TextStyle(fontSize: 22, color: Colors.black),
+                Row(
+                  children: [
+                    Text(
+                      counterModel.profile?.name ?? "Name",
+                      style: const TextStyle(fontSize: 22, color: Colors.black),
+                    ),
+                    SizedBox(
+                      width: width * 0.01,
+                    ),
+                    Text(
+                      counterModel.profile?.surname ?? "Surname",
+                      style: const TextStyle(fontSize: 22, color: Colors.black),
+                    ),
+                  ],
                 ),
                 SizedBox(height: height * 0.03),
                 buildEditButon(context),
@@ -78,13 +80,37 @@ class _ProfilePageState extends State<ProfilePage> {
                   "My ecosystems",
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
-                SizedBox(height: height * 0.2, child: buildGrid(context)),
-                SizedBox(height: height * 0.08),
+                if (counterModel.ecosystems.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("No items added yet."),
+                      ],
+                    ),
+                  ),
+                if (counterModel.ecosystems.isNotEmpty)
+                  SizedBox(height: height * 0.17, child: buildGrid(context)),
+                SizedBox(height: height * 0.04),
                 const Text(
                   "My animals",
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
-                SizedBox(height: height * 0.2, child: buildGridanimal(context)),
+                if (counterModel.addanimal.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("No animals added yet."),
+                      ],
+                    ),
+                  ),
+                if (counterModel.addanimal.isNotEmpty)
+                  SizedBox(
+                      height: height * 0.17, child: buildGridanimal(context)),
+                SizedBox(height: height * 0.04),
               ],
             ),
           ),

@@ -17,7 +17,7 @@ class _EventsPageState extends State<EventsPage> {
   // Controllers
 
   // State for Save Button
-  bool _isSaveEnabled = false;
+  final bool _isSaveEnabled = false;
 
   Widget buildGridEvents(BuildContext context) {
     final counterModel = Provider.of<EcosystemProvider>(context);
@@ -64,7 +64,7 @@ class _EventsPageState extends State<EventsPage> {
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           event.date,
                           style: const TextStyle(

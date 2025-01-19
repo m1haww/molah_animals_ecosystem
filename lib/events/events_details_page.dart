@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
