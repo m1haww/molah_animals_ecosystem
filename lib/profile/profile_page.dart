@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Profile", style: TextStyle(fontSize: 22)),
+                buildText("Profile"),
                 SizedBox(height: height * 0.04),
                 counterModel.profile == null
                     ? const Image(image: AssetImage("images/add.png"))
@@ -62,14 +62,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       counterModel.profile?.name ?? "Name",
-                      style: const TextStyle(fontSize: 22, color: Colors.black),
+                      style: const TextStyle(
+                          fontSize: 22, color: Colors.black, fontFamily: "Sf"),
                     ),
                     SizedBox(
                       width: width * 0.01,
                     ),
                     Text(
                       counterModel.profile?.surname ?? "Surname",
-                      style: const TextStyle(fontSize: 22, color: Colors.black),
+                      style: const TextStyle(
+                          fontSize: 22, color: Colors.black, fontFamily: "Sf"),
                     ),
                   ],
                 ),
@@ -78,7 +80,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: height * 0.02),
                 const Text(
                   "My ecosystems",
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontFamily: "Sf",
+                      fontWeight: FontWeight.bold),
                 ),
                 if (counterModel.ecosystems.isEmpty)
                   const Padding(
@@ -86,7 +92,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("No items added yet."),
+                        Text(
+                          "No items added yet.",
+                          style: TextStyle(
+                              fontFamily: "Sf", fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),
@@ -95,7 +105,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: height * 0.04),
                 const Text(
                   "My animals",
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontFamily: "Sf",
+                      fontWeight: FontWeight.bold),
                 ),
                 if (counterModel.addanimal.isEmpty)
                   const Padding(
@@ -103,7 +117,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("No animals added yet."),
+                        Text(
+                          "No animals added yet.",
+                          style: TextStyle(
+                              fontFamily: "Sf", fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),

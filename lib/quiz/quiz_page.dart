@@ -149,7 +149,7 @@ class _QuizPageState extends State<QuizPage> {
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   GestureDetector(
                     onTap: () {
                       setState(() {

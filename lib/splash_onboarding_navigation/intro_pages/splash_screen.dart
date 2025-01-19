@@ -143,7 +143,7 @@ class _splashscreenState extends State<splashscreen> {
                   Navigator.pushReplacement(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => Onboarding(),
+                      builder: (context) => const Onboarding(),
                     ),
                   );
                 },

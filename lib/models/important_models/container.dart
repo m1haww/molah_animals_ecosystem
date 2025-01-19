@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/animal/details_animal_page.dart';
 import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
-import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/profile/profile_edit_page.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -22,10 +21,7 @@ Widget buildContainer(BuildContext context, VoidCallback onTap) {
       child: const Center(
         child: Text(
           'Continue',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: "Sf"),
         ),
       ),
     ),
@@ -36,7 +32,10 @@ Widget buildText(String text) {
   return Text(
     text,
     style: const TextStyle(
-        fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 30,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontFamily: "Sf"),
   );
 }
 
@@ -66,7 +65,8 @@ Widget buildNextbuton(String text) {
     padding: const EdgeInsets.only(right: 20.0),
     child: Text(
       text,
-      style: const TextStyle(color: Color(0xffE5182B), fontSize: 17),
+      style: const TextStyle(
+          color: Color(0xffE5182B), fontSize: 17, fontFamily: "Sf"),
     ),
   );
 }
@@ -88,10 +88,8 @@ Widget buildTextField(String labelText,
       controller: controller,
       maxLines: null,
       minLines: 1,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 17,
-      ),
+      style:
+          const TextStyle(color: Colors.black, fontSize: 17, fontFamily: "Sf"),
       cursorColor: Colors.black,
       decoration: InputDecoration(
         labelText: labelText,
@@ -122,10 +120,7 @@ Widget buildAddContainer(
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-          ),
+          style: TextStyle(color: textColor, fontSize: 20, fontFamily: "Sf"),
         ),
       ),
     ),
@@ -135,14 +130,16 @@ Widget buildAddContainer(
 Widget buildTextOptinal(String text) {
   return Text(
     text,
-    style: const TextStyle(fontSize: 15, color: Color(0xffABABAB)),
+    style: const TextStyle(
+        fontSize: 15, color: Color(0xffABABAB), fontFamily: "Sf"),
   );
 }
 
 Widget buildTextOptinal2(String text) {
   return Text(
     text,
-    style: const TextStyle(fontSize: 15, color: Color(0xff585858)),
+    style: const TextStyle(
+        fontSize: 15, color: Color(0xff585858), fontFamily: "Sf"),
   );
 }
 
@@ -150,7 +147,8 @@ Widget buildContainerdetailsAnimals(BuildContext context, String text) {
   return Container(
     child: Text(
       text,
-      style: const TextStyle(fontSize: 17, color: Colors.black),
+      style:
+          const TextStyle(fontSize: 17, color: Colors.black, fontFamily: "Sf"),
     ),
   );
 }
@@ -285,7 +283,8 @@ Widget buildContainerOpen(BuildContext context, final String text,
         children: [
           Text(
             text,
-            style: const TextStyle(fontSize: 17, color: Colors.black),
+            style: const TextStyle(
+                fontSize: 17, color: Colors.black, fontFamily: "Sf"),
           ),
           GestureDetector(
             onTap: () async {
@@ -393,7 +392,8 @@ Widget buildEditButon(BuildContext context) {
           children: [
             Text(
               "Edit Profile",
-              style: TextStyle(fontSize: 17, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 17, color: Colors.black, fontFamily: "Sf"),
             ),
           ],
         ),
@@ -475,17 +475,15 @@ Widget buildGridanimal(
                     Text(
                       counterModel.addanimal[index].name,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          fontFamily: "Sf"),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       counterModel.addanimal[index].birth,
                       style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
-                      ),
+                          color: Colors.grey, fontSize: 12, fontFamily: "Sf"),
                     ),
                     const SizedBox(height: 4),
                     Text(
