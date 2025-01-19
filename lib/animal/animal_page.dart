@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/animal/animal_add_page.dart';
-import 'package:molah_animals_ecosystem/home/Home.dart';
-import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
+import 'package:molah_animals_ecosystem/animal/details_animal_page.dart';
 import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
-import 'package:molah_animals_ecosystem/home/details_pages/details_add_page.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:provider/provider.dart';
 
@@ -15,116 +13,95 @@ class AnimalsPage extends StatefulWidget {
   State<AnimalsPage> createState() => _AnimalsPageState();
 }
 
-class _AnimalsPageState extends State<AnimalsPage> {
-  Widget buildGridanimal(
-    BuildContext context,
-  ) {
-    final height = MediaQuery.of(context).size.height;
-    final counterModel = Provider.of<EcosystemProvider>(context);
-    print(
-      counterModel.addanimal.length,
-    );
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 8, // Increased space between items
-        mainAxisSpacing: 12, // Increased space between items
-      ),
-      itemCount: counterModel.addanimal.length,
-      itemBuilder: (context, index) {
-        print(counterModel.addanimal[index].name);
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => DetailsAddPage(
-                  ecosystem: counterModel.ecosystems[index],
-                ),
+Widget buildGridanimal(
+  BuildContext context,
+) {
+  final height = MediaQuery.of(context).size.height;
+  final counterModel = Provider.of<EcosystemProvider>(context);
+
+  return GridView.builder(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2, // Number of items in a row
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 12,
+      childAspectRatio: 0.7, // Adjust as needed
+    ),
+    itemCount: counterModel.addanimal.length,
+    itemBuilder: (context, index) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => DetailsAnimalPage(
+                addAnimal: counterModel.addanimal[index],
               ),
-            );
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(18), // Rounded corners
-            child: Stack(
-              children: [
-                // Image with gradient overlay
-                Container(
+            ),
+          );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18), // Rounded corners
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Image
+              Expanded(
+                child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                        width: 2, color: Colors.white.withOpacity(0.3)),
-                    image: const DecorationImage(
-                      image: AssetImage("images/nature.jpeg"),
+                    image: DecorationImage(
+                      image: counterModel.addanimal[index].image,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.black.withOpacity(0.4),
-                          Colors.transparent
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                ),
+              ),
+
+              // Text Container
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(18)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      counterModel.addanimal[index].name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
-                  ),
-                ),
-                // Text overlay on image
-                Positioned(
-                  bottom: 10,
-                  left: 10,
-                  right: 10,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 6.0),
-                    decoration: BoxDecoration(
-                      color: Colors.black
-                          .withOpacity(0.6), // Dark background for text
-                      borderRadius: BorderRadius.circular(12),
+                    const SizedBox(height: 4),
+                    Text(
+                      counterModel.addanimal[index].birth,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          counterModel.addanimal[index].name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          counterModel.addanimal[index].birth,
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          counterModel.addanimal[index].type,
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
+                    const SizedBox(height: 4),
+                    Text(
+                      counterModel.addanimal[index].type,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
 
+class _AnimalsPageState extends State<AnimalsPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

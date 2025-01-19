@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/events/events_add_page.dart';
+import 'package:molah_animals_ecosystem/events/events_details_page.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
-import 'package:molah_animals_ecosystem/home/details_pages/details_add_page.dart';
-import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:provider/provider.dart';
 
 class EventsPage extends StatefulWidget {
@@ -15,6 +14,91 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
+  // Controllers
+
+  // State for Save Button
+  bool _isSaveEnabled = false;
+
+  Widget buildGridEvents(BuildContext context) {
+    final counterModel = Provider.of<EcosystemProvider>(context);
+    return ListView.builder(
+      itemCount: counterModel.eventsanimal.length,
+      itemBuilder: (context, index) {
+        final event = counterModel.eventsanimal[index];
+        final colorMap = {
+          "Strong": Colors.red,
+          "Medium": Colors.orange,
+          "Weak": Colors.green,
+        };
+        final color = colorMap[event.type] ?? Colors.grey;
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => EventsDetailsPage(
+                      eventsanimal: counterModel.eventsanimal[index]),
+                ));
+          },
+          child: Card(
+            elevation: 2,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          event.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          event.date,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8.0),
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      event.type,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -27,12 +111,18 @@ class _EventsPageState extends State<EventsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildText("Events"),
+              const Text(
+                "Events",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(height: height * 0.02),
               Expanded(
                 child: Consumer<EcosystemProvider>(
                   builder: (context, provider, child) {
-                    final ecosystemItems = provider.ecosystems;
+                    final ecosystemItems = provider.eventsanimal;
                     return ecosystemItems.isEmpty
                         ? Center(
                             child: ClipRRect(
@@ -46,7 +136,7 @@ class _EventsPageState extends State<EventsPage> {
                               ),
                             ),
                           )
-                        : buildGrid(context, provider, ecosystemItems);
+                        : buildGridEvents(context);
                   },
                 ),
               ),
@@ -54,16 +144,12 @@ class _EventsPageState extends State<EventsPage> {
                 alignment: Alignment.bottomRight,
                 child: GestureDetector(
                   onTap: () async {
-                    final result = await Navigator.push(
+                    await Navigator.push(
                       context,
                       CupertinoPageRoute(
                         builder: (context) => const EventsAddPage(),
                       ),
                     );
-                    if (result != null && result is Ecosystem) {
-                      Provider.of<EcosystemProvider>(context, listen: false)
-                          .addEcosystem(result);
-                    }
                   },
                   child: const Image(
                     image: AssetImage("images/Button.png"),
@@ -75,73 +161,6 @@ class _EventsPageState extends State<EventsPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget buildGrid(BuildContext context, EcosystemProvider provider,
-      List<Ecosystem> ecosystemanimals) {
-    final height = MediaQuery.of(context).size.height;
-
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 3,
-        mainAxisSpacing: 5,
-      ),
-      itemCount: ecosystemanimals.length,
-      itemBuilder: (context, index) {
-        // Retrieve the first animal from the ecosystem's animals list
-        final animal = ecosystemanimals[index].animals;
-
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => DetailsAddPage(
-                  ecosystem: ecosystemanimals[index],
-                ),
-              ),
-            );
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 2),
-                    image: const DecorationImage(
-                      image: AssetImage("images/nature.jpeg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
-                    color: Colors.white,
-                    width: double.infinity,
-                    height: height * 0.04,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        animal != null ? animal.name : "No Animal",
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

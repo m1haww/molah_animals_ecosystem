@@ -3,29 +3,42 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
+import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
+import 'package:provider/provider.dart';
 
 class ProfileEditPage extends StatefulWidget {
-  const ProfileEditPage({super.key});
-
+  const ProfileEditPage({
+    super.key,
+  });
   @override
   State<ProfileEditPage> createState() => _ProfileEditPageState();
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
-  void _saveProfile() {
-    if (_selectedImage != null || _imageData != null) {
-      Navigator.pop(context, {
-        'name': nameController.text,
-        'surname': surnameController.text,
-        'image': kIsWeb ? _imageData : _selectedImage
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Please select an image and fill all fields.")),
-      );
-    }
+  bool _saveProfile = false;
+  @override
+  void initState() {
+    super.initState();
+    // Add listeners to controllers to update save button state
+    nameController.addListener(_updateSaveButtonState);
+    surnameController.addListener(_updateSaveButtonState);
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers and listeners
+    nameController.dispose();
+    surnameController.dispose();
+    super.dispose();
+  }
+
+  void _updateSaveButtonState() {
+    setState(() {
+      _saveProfile =
+          nameController.text.isNotEmpty && surnameController.text.isNotEmpty;
+    });
   }
 
   final TextEditingController nameController = TextEditingController();
@@ -71,7 +84,24 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           Navigator.pop(context);
         }),
         actions: [
-          GestureDetector(onTap: _saveProfile, child: buildNextbuton("Save"))
+          GestureDetector(
+              onTap: _saveProfile
+                  ? () {
+                      final counterModel = Provider.of<EcosystemProvider>(
+                          context,
+                          listen: false);
+                      final imageToSave = kIsWeb ? _imageData : _selectedImage;
+                      counterModel.addProfile(Profile(
+                        name: nameController.text,
+                        surname: surnameController.text,
+                        image: kIsWeb
+                            ? MemoryImage(_imageData!)
+                            : FileImage(_selectedImage!),
+                      ));
+                      Navigator.pop(context);
+                    }
+                  : null,
+              child: buildNextbuton("Save"))
         ],
       ),
       body: SafeArea(

@@ -5,14 +5,15 @@ class EcosystemProvider extends ChangeNotifier {
   final List<Predator> _predators = [];
   final List<Victim> _victims = [];
   final List<Ecosystem> _ecosystems = [];
-  final List<Animals> _animals = [];
   final List<AddAnimal> _addanimals = [];
+  final List<EventsAnimal> _eventsanimal = [];
+  final List<Profile> _profile = [];
   // Getters
   List<Predator> get predators => _predators;
   List<Victim> get victims => _victims;
   List<Ecosystem> get ecosystems => _ecosystems;
-  List<Animals> get animals => _animals;
   List<AddAnimal> get addanimal => _addanimals;
+  List<EventsAnimal> get eventsanimal => _eventsanimal;
   Profile? profile;
   // Methods to manage Predators
   void addPredator(Predator predator) {
@@ -47,14 +48,18 @@ class EcosystemProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Methods to manage Animals
-  void addAnimals(Animals animals) {
-    _animals.add(animals);
+  void addAddAnimal(AddAnimal addanimal) {
+    _addanimals.add(addanimal);
     notifyListeners();
   }
 
-  void addAddAnimal(AddAnimal addanimal) {
-    _addanimals.add(addanimal);
+  void addEventsAnimal(EventsAnimal eventsanimal) {
+    _eventsanimal.add(eventsanimal);
+    notifyListeners();
+  }
+
+  void addProfile(Profile profile) {
+    _profile.add(profile);
     notifyListeners();
   }
 }

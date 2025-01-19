@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:molah_animals_ecosystem/animal/details_animal_page.dart';
+import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/profile/profile_edit_page.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 Widget buildContainer(BuildContext context, VoidCallback onTap) {
@@ -101,7 +104,11 @@ Widget buildTextField(String labelText,
 }
 
 Widget buildAddContainer(
-    BuildContext context, String text, Color color, Color textColor) {
+  BuildContext context,
+  String text,
+  Color color,
+  Color textColor,
+) {
   final height = MediaQuery.of(context).size.height;
 
   return GestureDetector(
@@ -148,49 +155,49 @@ Widget buildContainerdetailsAnimals(BuildContext context, String text) {
   );
 }
 
-Widget buildDetailsContainer(
-  BuildContext context,
-  final String name,
-) {
-  final width = MediaQuery.of(context).size.width;
-  final height = MediaQuery.of(context).size.height;
+// Widget buildDetailsContainer(
+//   BuildContext context,
+//   final String name,
+// ) {
+//   final width = MediaQuery.of(context).size.width;
+//   final height = MediaQuery.of(context).size.height;
 
-  return Container(
-    width: width * 0.35,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.1),
-          blurRadius: 3,
-          offset: const Offset(0, 1),
-        ),
-      ],
-    ),
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ClipOval(
-          child: Image.asset(
-            "images/nature.jpeg",
-            width: width * 0.25,
-            height: width * 0.25,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: height * 0.02),
-        Text(
-          name,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-        ),
-      ],
-    ),
-  );
-}
+//   return Container(
+//     width: width * 0.35,
+//     decoration: BoxDecoration(
+//       borderRadius: BorderRadius.circular(12),
+//       boxShadow: [
+//         BoxShadow(
+//           color: Colors.grey.withOpacity(0.1),
+//           blurRadius: 3,
+//           offset: const Offset(0, 1),
+//         ),
+//       ],
+//     ),
+//     padding: const EdgeInsets.all(8.0),
+//     child: Column(
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         ClipOval(
+//           child: Image.asset(
+//             "images/nature.jpeg",
+//             width: width * 0.25,
+//             height: width * 0.25,
+//             fit: BoxFit.cover,
+//           ),
+//         ),
+//         SizedBox(height: height * 0.02),
+//         Text(
+//           name,
+//           style: const TextStyle(
+//             color: Colors.black,
+//             fontSize: 16,
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
 
 Widget buildImage(BuildContext context) {
   final width = MediaQuery.of(context).size.width;
@@ -391,5 +398,109 @@ Widget buildEditButon(BuildContext context) {
         ),
       ),
     ),
+  );
+}
+
+Widget buildAvatar(BuildContext context, ImageProvider image) {
+  final width = MediaQuery.of(context).size.width;
+  final height = MediaQuery.of(context).size.width;
+  return ClipOval(
+    child: Container(
+        width: width * 0.45,
+        height: height * 0.45,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: image,
+            fit: BoxFit.cover,
+          ),
+        )),
+  );
+}
+
+Widget buildGridanimal(
+  BuildContext context,
+) {
+  final height = MediaQuery.of(context).size.height;
+  final counterModel = Provider.of<EcosystemProvider>(context);
+
+  return GridView.builder(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2, // Number of items in a row
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 12,
+      childAspectRatio: 0.7, // Adjust as needed
+    ),
+    itemCount: counterModel.addanimal.length,
+    itemBuilder: (context, index) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => DetailsAnimalPage(
+                addAnimal: counterModel.addanimal[index],
+              ),
+            ),
+          );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18), // Rounded corners
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Image
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: counterModel.addanimal[index].image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Text Container
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(18)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      counterModel.addanimal[index].name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      counterModel.addanimal[index].birth,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      counterModel.addanimal[index].type,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }

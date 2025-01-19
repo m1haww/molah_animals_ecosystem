@@ -21,3 +21,16 @@ String getTypeSelection(int selectedIndex) {
       return "None";
   }
 }
+
+String getTypeSelectionEventsAnimal(int selectedIndex) {
+  switch (selectedIndex) {
+    case 0:
+      return "Strong";
+    case 1:
+      return "Medium";
+    case 2:
+      return "Weak";
+    default:
+      return "None";
+  }
+}

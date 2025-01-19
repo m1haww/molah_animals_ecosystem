@@ -24,9 +24,8 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
 
   AddAnimal? addAnimal;
   DateTime? _selectedDateOfBirth;
-
   File? _selectedImage;
-  Uint8List? _imageData; // For web
+  Uint8List? _imageData;
   final ImagePicker _picker = ImagePicker();
   bool _isSaveEnabled = false;
 
@@ -104,15 +103,19 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
                     final counterModel =
                         Provider.of<EcosystemProvider>(context, listen: false);
 
+                    final imageToSave = kIsWeb ? _imageData : _selectedImage;
+
                     counterModel.addAddAnimal(AddAnimal(
                       name: name_of_the_animalController.text,
+                      image: kIsWeb
+                          ? MemoryImage(_imageData!)
+                          : FileImage(_selectedImage!),
                       type: typeController.text,
                       optional: optionalController.text,
                       birth: formattedDate,
                     ));
-                    Navigator.pop(
-                      context,
-                    );
+
+                    Navigator.pop(context);
                   }
                 : null,
             child: buildNextbuton(

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 
-class DetailsAboutAnimals extends StatefulWidget {
-  final Predator predator;
+class DetailsAnimalPage extends StatefulWidget {
+  final AddAnimal addAnimal;
 
-  const DetailsAboutAnimals({super.key, required this.predator});
+  const DetailsAnimalPage({super.key, required this.addAnimal});
 
   @override
-  State<DetailsAboutAnimals> createState() => _DetailsAboutAnimalsState();
+  State<DetailsAnimalPage> createState() => _DetailsAnimalPageState();
 }
 
-class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
+class _DetailsAnimalPageState extends State<DetailsAnimalPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -24,11 +24,11 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildText(widget.predator.name),
+                buildText(widget.addAnimal.name),
                 SizedBox(
                   height: height * 0.02,
                 ),
-                buildAvatar(context, widget.predator.image),
+                buildAvatar(context, widget.addAnimal.image),
                 SizedBox(
                   height: height * 0.02,
                 ),
@@ -64,27 +64,17 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildTextOptinal("Type of animal"),
-            buildContainerdetailsAnimals(widget.predator.name),
+            buildContainerdetailsAnimals(widget.addAnimal.type),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Type"),
-            buildContainerdetailsAnimals(widget.predator.type),
+            buildContainerdetailsAnimals(widget.addAnimal.optional),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Habitat"),
-            buildContainerdetailsAnimals(widget.predator.habitat),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            buildTextOptinal("Food"),
-            buildContainerdetailsAnimals(widget.predator.food),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            buildTextOptinal("Description"),
-            buildContainerdetailsAnimals(widget.predator.description),
+            buildContainerdetailsAnimals(widget.addAnimal.birth),
             SizedBox(
               height: height * 0.02,
             ),
@@ -94,7 +84,6 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
     );
   }
 
-  // Helper methods for building widgets
   Widget buildText(String text) {
     return Text(
       text,

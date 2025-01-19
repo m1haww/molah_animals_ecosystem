@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/navigation_page.dart';
+
 class splashscreen extends StatefulWidget {
   const splashscreen({super.key});
 
@@ -55,34 +57,51 @@ class _splashscreenState extends State<splashscreen> {
 
   // First page:
   Widget _buildOnboardingPage1() {
-    return const Center(
-      child: Text(
-        'Moolah\nAnimals',
-        style: TextStyle(
-          fontSize: 65,
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Background image
+        Image.asset(
+          'images/ez.png', // Replace with your actual image path
+          fit: BoxFit.cover,
         ),
-      ),
+        // Centered text
+        const Center(
+          child: Text(
+            'Moolah\nAnimals',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 65,
+              color:
+                  Colors.white, // Optional: Adjust color for better visibility
+              fontWeight: FontWeight.bold, // Optional: Add more emphasis
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   // Second page:
   Widget _buildOnboardingPage2() {
     return Stack(
+      fit: StackFit.expand,
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child:
-                Image.asset('assets/left_image.png', width: 150, height: 150),
-          ),
+        // Background image
+        Image.asset(
+          'images/ez.png',
+          fit: BoxFit.cover,
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child:
-                Image.asset('assets/right_image.png', width: 150, height: 150),
+        // Centered text
+        const Center(
+          child: Text(
+            'Moolah\nAnimals',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 65,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -94,52 +113,63 @@ class _splashscreenState extends State<splashscreen> {
     final height = MediaQuery.of(context).size.height;
 
     return Stack(
+      fit: StackFit.expand,
       children: [
-        const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        // Background image
+        Image.asset(
+          'images/ez.png', // Replace with your actual image path
+          fit: BoxFit.cover,
+        ),
+        // Content over the background
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Center(
-              child: Text(
-                'Mega\nMoolah',
-                style: TextStyle(
-                  fontSize: 65,
+            // Centered text
+            Expanded(
+              child: Center(
+                child: const Text(
+                  'Mega\nMoolah',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 65,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            // "Continue" button
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => NavigationPage(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: height * 0.06,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: const Color(0xffE5182B),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ],
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const splashscreen(),
-                  ),
-                );
-              },
-              child: Container(
-                height: height * 0.06,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: const Color(0xffE5182B),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ), // Text color
-                  ),
-                ),
-              ),
-            ),
-          ),
         ),
       ],
     );

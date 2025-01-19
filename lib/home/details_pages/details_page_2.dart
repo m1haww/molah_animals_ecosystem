@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/functions/ecosystem.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 
-class DetailsAboutAnimals extends StatefulWidget {
-  final Predator predator;
+class DetailsPage2 extends StatefulWidget {
+  final Victim victim;
 
-  const DetailsAboutAnimals({super.key, required this.predator});
+  const DetailsPage2({super.key, required this.victim});
 
   @override
-  State<DetailsAboutAnimals> createState() => _DetailsAboutAnimalsState();
+  State<DetailsPage2> createState() => _DetailsPage2State();
 }
 
-class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
+class _DetailsPage2State extends State<DetailsPage2> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -24,11 +24,11 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildText(widget.predator.name),
+                buildText(widget.victim.name),
                 SizedBox(
                   height: height * 0.02,
                 ),
-                buildAvatar(context, widget.predator.image),
+                buildAvatar(context, widget.victim.image),
                 SizedBox(
                   height: height * 0.02,
                 ),
@@ -64,27 +64,27 @@ class _DetailsAboutAnimalsState extends State<DetailsAboutAnimals> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildTextOptinal("Type of animal"),
-            buildContainerdetailsAnimals(widget.predator.name),
+            buildContainerdetailsAnimals(widget.victim.name),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Type"),
-            buildContainerdetailsAnimals(widget.predator.type),
+            buildContainerdetailsAnimals(widget.victim.type),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Habitat"),
-            buildContainerdetailsAnimals(widget.predator.habitat),
+            buildContainerdetailsAnimals(widget.victim.habitat),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Food"),
-            buildContainerdetailsAnimals(widget.predator.food),
+            buildContainerdetailsAnimals(widget.victim.food),
             SizedBox(
               height: height * 0.02,
             ),
             buildTextOptinal("Description"),
-            buildContainerdetailsAnimals(widget.predator.description),
+            buildContainerdetailsAnimals(widget.victim.description),
             SizedBox(
               height: height * 0.02,
             ),

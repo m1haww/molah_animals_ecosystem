@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:molah_animals_ecosystem/models/Click.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/models/container_check.dart';
@@ -13,6 +18,32 @@ class AddVictim extends StatefulWidget {
 }
 
 class _AddVictimState extends State<AddVictim> {
+  File? _selectedImage;
+  Uint8List? _imageData;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        if (kIsWeb) {
+          pickedImage.readAsBytes().then((bytes) {
+            setState(() {
+              _imageData = bytes;
+            });
+          }).catchError((e) {
+            print("Error loading image data: $e");
+          });
+        } else {
+          _selectedImage = File(pickedImage.path);
+        }
+      });
+    } else {
+      print("No image selected.");
+    }
+  }
+
   bool _isFormValidd() {
     return name_of_the_animalController.text.isNotEmpty &&
         habitatController.text.isNotEmpty &&
@@ -42,6 +73,9 @@ class _AddVictimState extends State<AddVictim> {
                           context,
                           Victim(
                               name: name_of_the_animalController.text,
+                              image: kIsWeb
+                                  ? MemoryImage(_imageData!)
+                                  : FileImage(_selectedImage!),
                               habitat: habitatController.text,
                               description: descriptionController.text,
                               food: getFoodSelection(_selectedClickIndex),
@@ -60,7 +94,17 @@ class _AddVictimState extends State<AddVictim> {
               children: [
                 buildText("Add a victim"),
                 SizedBox(height: height * 0.02),
-                const Image(image: AssetImage("images/add.png")),
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: _selectedImage == null
+                      ? const Image(image: AssetImage("images/add.png"))
+                      : (kIsWeb
+                          ? (_imageData != null
+                              ? Image.memory(_imageData!)
+                              : const Image(
+                                  image: AssetImage("images/add.png")))
+                          : Image.file(_selectedImage!)),
+                ),
                 SizedBox(height: height * 0.02),
                 buildTextOptinal2("Information about the victim"),
                 SizedBox(height: height * 0.02),

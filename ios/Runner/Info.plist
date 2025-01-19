@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>We need access to your photo library to pick images for your avatar.</string>
+    <string>We need access to your photo library to allow you to select images directly from your device for customizing your profile or adding images to your content.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
