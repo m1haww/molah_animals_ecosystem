@@ -62,7 +62,7 @@ class _splashscreenState extends State<splashscreen> {
       children: [
         // Background image
         Image.asset(
-          'images/ez.png', // Replace with your actual image path
+          'images/ez.png',
           fit: BoxFit.cover,
         ),
         // Centered text
@@ -72,9 +72,8 @@ class _splashscreenState extends State<splashscreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 65,
-              color:
-                  Colors.white, // Optional: Adjust color for better visibility
-              fontWeight: FontWeight.bold, // Optional: Add more emphasis
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -115,19 +114,16 @@ class _splashscreenState extends State<splashscreen> {
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Background image
         Image.asset(
-          'images/ez.png', // Replace with your actual image path
+          'images/ez.png',
           fit: BoxFit.cover,
         ),
-        // Content over the background
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Centered text
-            Expanded(
+            const Expanded(
               child: Center(
-                child: const Text(
+                child: Text(
                   'Mega\nMoolah',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -138,7 +134,6 @@ class _splashscreenState extends State<splashscreen> {
                 ),
               ),
             ),
-            // "Continue" button
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
@@ -146,7 +141,7 @@ class _splashscreenState extends State<splashscreen> {
                   Navigator.pushReplacement(
                     context,
                     CupertinoPageRoute(
-                      builder: (context) => NavigationPage(),
+                      builder: (context) => const NavigationPage(),
                     ),
                   );
                 },
