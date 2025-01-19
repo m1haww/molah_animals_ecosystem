@@ -64,7 +64,9 @@ class _AddVictimState extends State<AddVictim> {
 
     return Scaffold(
       appBar: AppBar(
-        // leading: buildIconBack(context),
+        leading: buildIconBack(context, () {
+          Navigator.pop(context);
+        }),
         actions: [
           GestureDetector(
               onTap: _isFormValidd()

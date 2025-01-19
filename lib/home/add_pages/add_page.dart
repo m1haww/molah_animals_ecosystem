@@ -69,6 +69,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -96,12 +97,32 @@ class _AddPageState extends State<AddPage> {
               GestureDetector(
                   onTap: _pickImage,
                   child: _selectedImage == null
-                      ? const Image(image: AssetImage("images/add.png"))
+                      ? ClipOval(
+                          child: Container(
+                              width: width * 0.20,
+                              height: height * 0.20,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("images/nature.jpeg"),
+                                  fit: BoxFit.cover,
+                                ),
+                              )),
+                        )
                       : (kIsWeb
                           ? (_imageData != null
                               ? Image.memory(_imageData!)
-                              : const Image(
-                                  image: AssetImage("images/add.png")))
+                              : ClipOval(
+                                  child: Container(
+                                      width: width * 0.20,
+                                      height: height * 0.20,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image:
+                                              AssetImage("images/nature.jpeg"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )),
+                                ))
                           : Image.file(_selectedImage!))),
               SizedBox(
                 height: height * 0.02,
