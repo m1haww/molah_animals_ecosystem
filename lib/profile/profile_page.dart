@@ -86,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontFamily: "Sf",
                       fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: height * 0.02),
                 if (counterModel.ecosystems.isEmpty)
                   const Padding(
                     padding: EdgeInsets.all(16.0),
@@ -100,6 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
+                SizedBox(height: height * 0.02),
                 if (counterModel.ecosystems.isNotEmpty)
                   SizedBox(height: height * 0.17, child: buildGrid(context)),
                 SizedBox(height: height * 0.04),
