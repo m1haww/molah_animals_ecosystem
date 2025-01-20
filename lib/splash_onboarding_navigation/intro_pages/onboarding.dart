@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:molah_animals_ecosystem/home/Home.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/navigation_page.dart';
 import 'package:molah_animals_ecosystem/utils/onboarding_info_page.dart';

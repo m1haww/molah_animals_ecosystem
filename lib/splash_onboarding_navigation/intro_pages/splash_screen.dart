@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/navigation_page.dart';
 import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/onboarding.dart';
-import 'package:molah_animals_ecosystem/utils/onboarding_info_page.dart';
 
 class splashscreen extends StatefulWidget {
   const splashscreen({super.key});
