@@ -62,7 +62,18 @@ class _EventsAddPageState extends State<EventsAddPage> {
 
                     Navigator.pop(context);
                   }
-                : null,
+                : () {
+                    // Show a SnackBar if the form is incomplete
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: const Text(
+                          "Please complete all required fields.",
+                          style: TextStyle(fontFamily: "Sf"),
+                        ),
+                        backgroundColor: Color(0xffE5182B),
+                      ),
+                    );
+                  },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: buildNextbuton("Save"),

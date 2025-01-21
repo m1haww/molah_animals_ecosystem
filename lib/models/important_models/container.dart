@@ -12,7 +12,7 @@ Widget buildContainer(BuildContext context, VoidCallback onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: height * 0.06,
+      height: height * 0.065,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -32,8 +32,8 @@ Widget buildText(String text) {
   return Text(
     text,
     style: const TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
+        fontSize: 36,
+        fontWeight: FontWeight.w700,
         color: Colors.black,
         fontFamily: "Sf"),
   );
@@ -88,12 +88,18 @@ Widget buildTextField(String labelText,
       controller: controller,
       maxLines: null,
       minLines: 1,
-      style:
-          const TextStyle(color: Colors.black, fontSize: 17, fontFamily: "Sf"),
+      style: TextStyle(
+          color: Colors.black,
+          fontSize: 17,
+          fontFamily: "Sf",
+          fontWeight: FontWeight.w400),
       cursorColor: Colors.black,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(color: Color(0XFFABABAB), fontSize: 13),
+        labelStyle: TextStyle(
+            color: Color(0XFFABABAB),
+            fontSize: 13,
+            fontWeight: FontWeight.w400),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         border: InputBorder.none,
       ),
@@ -111,7 +117,7 @@ Widget buildAddContainer(
 
   return GestureDetector(
     child: Container(
-      height: height * 0.06,
+      height: height * 0.065,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -120,7 +126,11 @@ Widget buildAddContainer(
       child: Center(
         child: Text(
           text,
-          style: TextStyle(color: textColor, fontSize: 20, fontFamily: "Sf"),
+          style: TextStyle(
+              color: textColor,
+              fontSize: 17,
+              fontFamily: "Sf",
+              fontWeight: FontWeight.w600),
         ),
       ),
     ),
@@ -138,8 +148,11 @@ Widget buildTextOptinal(String text) {
 Widget buildTextOptinal2(String text) {
   return Text(
     text,
-    style: const TextStyle(
-        fontSize: 15, color: Color(0xff585858), fontFamily: "Sf"),
+    style: TextStyle(
+        fontSize: 15,
+        color: Color(0xff585858),
+        fontFamily: "Sf",
+        fontWeight: FontWeight.w500),
   );
 }
 

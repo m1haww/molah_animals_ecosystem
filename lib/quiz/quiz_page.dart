@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/models/functions/quiz.dart';
 import 'package:molah_animals_ecosystem/models/important_models/container.dart';
+import 'package:molah_animals_ecosystem/quiz/DifficultySelectionPage.dart';
 
 class QuizPage extends StatefulWidget {
   final String difficulty;
@@ -32,22 +34,21 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            leading: buildIconBack(context, () {
-              Navigator.pop(context);
-            }),
-            title: buildText("Quiz"),
-            centerTitle: false,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            iconTheme: const IconThemeData(color: Colors.black),
-          ),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildText("Quiz"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -64,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
                   SizedBox(height: height * 0.01),
                   LinearProgressIndicator(
                     value: (currentQuestionIndex + 1) / quiz.questions.length,
-                    backgroundColor: Colors.grey.shade300,
+                    backgroundColor: Color(0xffBE1E00),
                     valueColor:
                         const AlwaysStoppedAnimation<Color>(Colors.green),
                     minHeight: 8,
@@ -89,9 +90,9 @@ class _QuizPageState extends State<QuizPage> {
                         Text(
                           quiz.questions[currentQuestionIndex].question,
                           style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Sf"),
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: height * 0.02),
@@ -120,13 +121,13 @@ class _QuizPageState extends State<QuizPage> {
                                     borderRadius: BorderRadius.circular(16),
                                     side: BorderSide(
                                       color: !isAnswered
-                                          ? Colors.white
+                                          ? Color(0xffE1E1E1)
                                           : (selectedAnswer == option &&
                                                   isCorrect)
-                                              ? Colors.green
+                                              ? Color(0xff5BCC20)
                                               : (selectedAnswer == option &&
                                                       !isCorrect)
-                                                  ? Colors.red
+                                                  ? Color(0xffFC2527)
                                                   : Colors.white,
                                       width: 2.0,
                                     ),
@@ -136,7 +137,11 @@ class _QuizPageState extends State<QuizPage> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     option,
-                                    style: const TextStyle(fontSize: 18),
+                                    style: const TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontFamily: "Sf",
+                                        fontWeight: FontWeight.w400),
                                   ),
                                 ),
                               ),
@@ -153,37 +158,52 @@ class _QuizPageState extends State<QuizPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (currentQuestionIndex < quiz.questions.length - 1) {
-                          currentQuestionIndex++;
-                          isAnswered = false;
-                          selectedAnswer = null;
-                        } else {
-                          // Quiz finished logic
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text("Quiz Finished"),
-                              content: Text(
-                                  'Your score: $score/${quiz.questions.length}'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      currentQuestionIndex = 0;
-                                      score = 0;
-                                      isAnswered = false;
-                                      selectedAnswer = null;
-                                    });
-                                  },
-                                  child: const Text(
-                                    "Ok",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
+                        if (!isAnswered) {
+                          // If no answer is selected, show a message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  const Text('You need to choose an answer!'),
+                              backgroundColor: Colors.red,
                             ),
                           );
+                        } else {
+                          if (currentQuestionIndex <
+                              quiz.questions.length - 1) {
+                            currentQuestionIndex++;
+                            isAnswered = false;
+                            selectedAnswer = null;
+                          } else {
+                            // Quiz finished logic
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Quiz Finished"),
+                                content: Text(
+                                    'Your score: $score/${quiz.questions.length}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(
+                                          context); // HERE  IDK HOW TO GET BACK TO THE MAIN PAGE WHILE BEEING WITH THE NAVIGATION BAR
+                                      setState(() {
+                                        currentQuestionIndex = 0;
+                                        score = 0;
+                                        isAnswered = false;
+                                        selectedAnswer = null;
+                                      });
+                                    },
+                                    child: const Text(
+                                      "Ok",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: "Sf"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         }
                       });
                     },

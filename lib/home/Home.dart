@@ -24,7 +24,7 @@ Widget buildGrid(
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2,
       crossAxisSpacing: 3,
-      mainAxisSpacing: 5,
+      mainAxisSpacing: 6,
     ),
     itemCount: counterModel.ecosystems.length,
     itemBuilder: (context, index) {
@@ -59,16 +59,23 @@ Widget buildGrid(
                 child: Container(
                   color: Colors.white,
                   width: double.infinity,
-                  height: height * 0.04,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      counterModel.ecosystems[index].title,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                  height: height * 0.045,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          counterModel.ecosystems[index].title,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                              fontFamily: "Sf"),
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -103,7 +110,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               "No items added yet.",
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Sf"),
                             ),
                           )
                         : buildGrid(context);

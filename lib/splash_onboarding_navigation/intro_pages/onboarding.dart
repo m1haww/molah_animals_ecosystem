@@ -32,7 +32,11 @@ class _OnboardingState extends State<Onboarding> {
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   "Skip",
-                  style: TextStyle(fontSize: 16, fontFamily: "Sf"),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: "Sf",
+                      color: Color(0xffFAFAFA),
+                      fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -67,7 +71,7 @@ class _OnboardingState extends State<Onboarding> {
             right: 0,
             child: Container(
               padding: const EdgeInsets.all(16),
-              height: height * 0.4,
+              height: height * 0.38,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(
@@ -81,14 +85,20 @@ class _OnboardingState extends State<Onboarding> {
                   Text(
                     onboardingPages[_currentPage].title,
                     style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
                         fontFamily: "Sf"),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
                   Text(
                     onboardingPages[_currentPage].info,
-                    style: const TextStyle(fontSize: 16, fontFamily: "Sf"),
+                    style: const TextStyle(
+                        fontSize: 13,
+                        fontFamily: "Sf",
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff585858)),
                   ),
                   const Spacer(),
                   buildContainer(
@@ -125,7 +135,7 @@ class _OnboardingState extends State<Onboarding> {
       fit: StackFit.expand,
       children: [
         Image.asset(
-          'images/ez.png',
+          'images/Onboarding1.png',
           fit: BoxFit.cover,
         ),
       ],
@@ -137,7 +147,7 @@ class _OnboardingState extends State<Onboarding> {
       fit: StackFit.expand,
       children: [
         Image.asset(
-          'images/ez.png',
+          'images/Onboarding_2.png',
           fit: BoxFit.cover,
         ),
       ],
@@ -149,7 +159,7 @@ class _OnboardingState extends State<Onboarding> {
       fit: StackFit.expand,
       children: [
         Image.asset(
-          'images/ez.png',
+          'images/Onboarding_3.png',
           fit: BoxFit.cover,
         ),
       ],

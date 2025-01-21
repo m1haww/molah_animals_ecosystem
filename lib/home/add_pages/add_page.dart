@@ -92,7 +92,7 @@ class _AddPageState extends State<AddPage> {
             children: [
               buildText("Create a food value"),
               SizedBox(
-                height: height * 0.02,
+                height: height * 0.025,
               ),
               GestureDetector(
                   onTap: _pickImage,
@@ -143,14 +143,35 @@ class _AddPageState extends State<AddPage> {
                       onTap: () {
                         if (titleController.text.isNotEmpty &&
                             descriptionController.text.isNotEmpty) {
-                          ecosystem = Ecosystem(
+                          setState(() {
+                            ecosystem = Ecosystem(
                               title: titleController.text,
-                              description: descriptionController.text);
-                          setState(() {});
+                              description: descriptionController.text,
+                            );
+                          });
+                          print(
+                              "Ecosystem saved successfully: ${ecosystem?.title}");
+                        } else {
+                          print(
+                              "Error: Please fill in all fields before saving.");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: const Text(
+                                "Please complete all fields to save.",
+                                style: TextStyle(
+                                    color: Colors.white, fontFamily: "Sf"),
+                              ),
+                              backgroundColor: Color(0xffE5182B),
+                            ),
+                          );
                         }
                       },
-                      child: buildAddContainer(context, "Save",
-                          const Color(0xffE5182B), Colors.white),
+                      child: buildAddContainer(
+                        context,
+                        "Save",
+                        const Color(0xffE5182B),
+                        Colors.white,
+                      ),
                     ),
 
                   if (ecosystem?.predator == null && ecosystem != null)

@@ -87,6 +87,7 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -118,7 +119,18 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
 
                     Navigator.pop(context);
                   }
-                : null,
+                : () {
+                    // Show a SnackBar if the form is incomplete
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: const Text(
+                          "Please complete all required fields.",
+                          style: TextStyle(fontFamily: "Sf"),
+                        ),
+                        backgroundColor: Color(0xffE5182B),
+                      ),
+                    );
+                  },
             child: buildNextbuton(
               "Save",
             ),
@@ -137,13 +149,32 @@ class _AnimalAddPageState extends State<AnimalAddPage> {
                 GestureDetector(
                   onTap: _pickImage,
                   child: _selectedImage == null
-                      ? const Image(image: AssetImage("images/add.png"))
+                      ? ClipOval(
+                          child: Image(
+                              image: const AssetImage("images/add.png"),
+                              width: width * 0.30,
+                              height: width * 0.30,
+                              fit: BoxFit.cover))
                       : (kIsWeb
-                          ? (_imageData != null
-                              ? Image.memory(_imageData!)
-                              : const Image(
-                                  image: AssetImage("images/add.png")))
-                          : Image.file(_selectedImage!)),
+                          ? ClipOval(
+                              child: (_imageData != null
+                                  ? Image.memory(_imageData!,
+                                      width: width * 0.30,
+                                      height: width * 0.30,
+                                      fit: BoxFit.cover)
+                                  : ClipOval(
+                                      child: Image(
+                                          image: AssetImage("images/add.png"),
+                                          width: width * 0.30,
+                                          height: width * 0.30,
+                                          fit: BoxFit.cover),
+                                    )),
+                            )
+                          : ClipOval(
+                              child: Image.file(_selectedImage!,
+                                  width: width * 0.30,
+                                  height: width * 0.30,
+                                  fit: BoxFit.cover))),
                 ),
                 SizedBox(height: height * 0.04),
                 buildTextField("The name of the animal ",

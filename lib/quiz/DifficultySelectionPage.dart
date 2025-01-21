@@ -7,21 +7,25 @@ class DifficultySelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: buildText("Quiz"),
-      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              buildText("Quiz"),
+              SizedBox(
+                height: height * 0.02,
+              ),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1.5,
                   children: [
                     _buildDifficultyCard(context, 'Enchanted Forest', 'Easy',
                         Colors.green, Colors.green.shade100),
@@ -70,10 +74,10 @@ class DifficultySelectionPage extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontFamily: "Sf"),
               ),
               const Spacer(),
               Container(
@@ -86,10 +90,10 @@ class DifficultySelectionPage extends StatelessWidget {
                 child: Text(
                   difficulty,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      fontFamily: "Sf"),
                 ),
               ),
             ],

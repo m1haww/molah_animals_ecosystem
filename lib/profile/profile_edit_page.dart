@@ -77,6 +77,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -117,12 +118,30 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             GestureDetector(
               onTap: _pickImage,
               child: _selectedImage == null
-                  ? const Image(image: AssetImage("images/add.png"))
+                  ? ClipOval(
+                      child: Image(
+                          image: const AssetImage("images/add.png"),
+                          width: width * 0.30,
+                          height: width * 0.30,
+                          fit: BoxFit.cover))
                   : (kIsWeb
                       ? (_imageData != null
-                          ? Image.memory(_imageData!)
-                          : const Image(image: AssetImage("images/add.png")))
-                      : Image.file(_selectedImage!)),
+                          ? ClipOval(
+                              child: Image.memory(_imageData!,
+                                  width: width * 0.30,
+                                  height: width * 0.30,
+                                  fit: BoxFit.cover))
+                          : ClipOval(
+                              child: Image(
+                                  image: const AssetImage("images/add.png"),
+                                  width: width * 0.30,
+                                  height: width * 0.30,
+                                  fit: BoxFit.cover)))
+                      : ClipOval(
+                          child: Image.file(_selectedImage!,
+                              width: width * 0.30,
+                              height: width * 0.30,
+                              fit: BoxFit.cover))),
             ),
             SizedBox(
               height: height * 0.02,

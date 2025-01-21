@@ -61,6 +61,7 @@ class _AddPredatorState extends State<AddPredator> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -69,22 +70,36 @@ class _AddPredatorState extends State<AddPredator> {
         }),
         actions: [
           GestureDetector(
-              onTap: _isFormValid()
-                  ? () {
-                      Navigator.pop(
-                          context,
-                          Predator(
-                              name: name_of_the_animalController.text,
-                              image: kIsWeb
-                                  ? MemoryImage(_imageData!)
-                                  : FileImage(_selectedImage!),
-                              habitat: habitatController.text,
-                              description: descriptionController.text,
-                              food: getFoodSelection(_selectedClickIndex),
-                              type: getTypeSelection(_selectedIndex)));
-                    }
-                  : null,
-              child: buildNextbuton("Save"))
+            onTap: _isFormValid()
+                ? () {
+                    Navigator.pop(
+                      context,
+                      Predator(
+                        name: name_of_the_animalController.text,
+                        image: kIsWeb
+                            ? MemoryImage(_imageData!)
+                            : FileImage(_selectedImage!),
+                        habitat: habitatController.text,
+                        description: descriptionController.text,
+                        food: getFoodSelection(_selectedClickIndex),
+                        type: getTypeSelection(_selectedIndex),
+                      ),
+                    );
+                  }
+                : () {
+                    // Show a SnackBar if the form is incomplete
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: const Text(
+                          "Please complete all required fields.",
+                          style: TextStyle(fontFamily: "Sf"),
+                        ),
+                        backgroundColor: Color(0xffE5182B),
+                      ),
+                    );
+                  },
+            child: buildNextbuton("Save"),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -99,13 +114,32 @@ class _AddPredatorState extends State<AddPredator> {
                 GestureDetector(
                   onTap: _pickImage,
                   child: _selectedImage == null
-                      ? const Image(image: AssetImage("images/add.png"))
+                      ? ClipOval(
+                          child: Image(
+                              image: const AssetImage("images/add.png"),
+                              width: width * 0.30,
+                              height: width * 0.30,
+                              fit: BoxFit.cover))
                       : (kIsWeb
                           ? (_imageData != null
-                              ? Image.memory(_imageData!)
-                              : const Image(
-                                  image: AssetImage("images/add.png")))
-                          : Image.file(_selectedImage!)),
+                              ? ClipOval(
+                                  child: Image.memory(_imageData!,
+                                      width: width * 0.30,
+                                      height: width * 0.30,
+                                      fit: BoxFit.cover))
+                              : ClipOval(
+                                  child: Image(
+                                  image: const AssetImage("images/add.png"),
+                                  width: width * 0.30,
+                                  height: width * 0.30,
+                                  fit: BoxFit.cover,
+                                )))
+                          : ClipOval(
+                              child: Image.file(
+                              _selectedImage!,
+                              width: width * 0.30,
+                              height: width * 0.30,
+                            ))),
                 ),
                 SizedBox(height: height * 0.02),
                 buildTextOptinal2("Information about the victim"),

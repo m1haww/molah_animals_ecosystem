@@ -4,28 +4,61 @@ import 'dart:async';
 
 import 'package:molah_animals_ecosystem/splash_onboarding_navigation/intro_pages/onboarding.dart';
 
-class splashscreen extends StatefulWidget {
-  const splashscreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  _splashscreenState createState() => _splashscreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _splashscreenState extends State<splashscreen> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
+class _SplashScreenState extends State<SplashScreen> {
+  bool showFirstText = false; // Start with "Moolah Animals" invisible
+  bool showSecondText = false; // Initially, "Mega Moolah" is also invisible
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < 2) {
-        _pageController.nextPage(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeIn,
+    _startAnimationSequence();
+  }
+
+  void _startAnimationSequence() async {
+    // Fade in "Moolah Animals"
+    await Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() {
+          showFirstText = true;
+        });
+      }
+    });
+
+    // Hold "Moolah Animals" visible for 3 seconds, then fade it out
+    await Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          showFirstText = false;
+        });
+      }
+    });
+
+    // Fade in "Mega Moolah"
+    await Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          showSecondText = true;
+        });
+      }
+    });
+
+    // Hold "Mega Moolah" visible for 3 seconds, then navigate to Onboarding
+    await Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                const Onboarding(), // Replace with your onboarding screen
+          ),
         );
-      } else {
-        timer.cancel();
       }
     });
   }
@@ -33,140 +66,52 @@ class _splashscreenState extends State<splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
+          // Background image
+          Image.asset(
+            'images/SplachScreen.png',
+            fit: BoxFit.cover,
+          ),
+          // Animated text
+          Center(
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                _buildOnboardingPage1(),
-                _buildOnboardingPage2(),
-                _buildOnboardingPage3(),
+                // "Moolah Animals" text
+                AnimatedOpacity(
+                  opacity: showFirstText ? 1.0 : 0.0,
+                  duration: const Duration(seconds: 2), // Smooth fade in/out
+                  child: const Text(
+                    'Moolah\nAnimals',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 65,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: "Sf"),
+                  ),
+                ),
+                // "Mega Moolah" text
+                AnimatedOpacity(
+                  opacity: showSecondText ? 1.0 : 0.0,
+                  duration: const Duration(seconds: 2), // Smooth fade in
+                  child: const Text(
+                    'Mega\nMoolah',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 65,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: "Sf"),
+                  ),
+                ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  // First page:
-  Widget _buildOnboardingPage1() {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Background image
-        Image.asset(
-          'images/ez.png',
-          fit: BoxFit.cover,
-        ),
-        // Centered text
-        const Center(
-          child: Text(
-            'Moolah\nAnimals',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 65,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Second page:
-  Widget _buildOnboardingPage2() {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Background image
-        Image.asset(
-          'images/ez.png',
-          fit: BoxFit.cover,
-        ),
-        // Centered text
-        const Center(
-          child: Text(
-            'Moolah\nAnimals',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 65,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Third page:
-  Widget _buildOnboardingPage3() {
-    final height = MediaQuery.of(context).size.height;
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.asset(
-          'images/ez.png',
-          fit: BoxFit.cover,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Expanded(
-              child: Center(
-                child: Text(
-                  'Mega\nMoolah',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 65,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => const Onboarding(),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: height * 0.06,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: const Color(0xffE5182B),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

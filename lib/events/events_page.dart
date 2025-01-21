@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:molah_animals_ecosystem/events/events_add_page.dart';
 import 'package:molah_animals_ecosystem/events/events_details_page.dart';
 import 'package:molah_animals_ecosystem/appProvider/appProvider.dart';
+import 'package:molah_animals_ecosystem/models/important_models/container.dart';
 import 'package:provider/provider.dart';
 
 class EventsPage extends StatefulWidget {
@@ -110,13 +111,7 @@ class _EventsPageState extends State<EventsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Events",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              buildText("Events"),
               SizedBox(height: height * 0.02),
               Expanded(
                 child: Consumer<EcosystemProvider>(

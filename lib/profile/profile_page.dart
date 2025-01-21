@@ -37,6 +37,20 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void _showSnackBar(String message) {
+    // Show a SnackBar with the provided message
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Color(0xffE5182B),
+        content: Text(
+          message,
+          style: TextStyle(fontFamily: "Sf", color: Colors.white),
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final counterModel = Provider.of<EcosystemProvider>(context);
@@ -54,16 +68,30 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 buildText("Profile"),
                 SizedBox(height: height * 0.04),
-                counterModel.profile == null
-                    ? const Image(image: AssetImage("images/add.png"))
-                    : buildAvatar(context, counterModel.profile!.image),
+                GestureDetector(
+                  onTap: () {
+                    // Show SnackBar when the profile image is clicked
+                    _showSnackBar("You should change it in Edit Profile");
+                  },
+                  child: counterModel.profile == null
+                      ? ClipOval(
+                          child: Image(
+                              image: const AssetImage("images/add.png"),
+                              width: width * 0.30,
+                              height: width * 0.30,
+                              fit: BoxFit.cover))
+                      : buildAvatar(context, counterModel.profile!.image),
+                ),
                 SizedBox(height: height * 0.02),
                 Row(
                   children: [
                     Text(
                       counterModel.profile?.name ?? "Name",
                       style: const TextStyle(
-                          fontSize: 22, color: Colors.black, fontFamily: "Sf"),
+                          fontSize: 22,
+                          color: Colors.black,
+                          fontFamily: "Sf",
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       width: width * 0.01,
@@ -71,7 +99,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       counterModel.profile?.surname ?? "Surname",
                       style: const TextStyle(
-                          fontSize: 22, color: Colors.black, fontFamily: "Sf"),
+                          fontSize: 22,
+                          color: Colors.black,
+                          fontFamily: "Sf",
+                          fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -84,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 15,
                       color: Colors.black,
                       fontFamily: "Sf",
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: height * 0.02),
                 if (counterModel.ecosystems.isEmpty)
@@ -96,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           "No items added yet.",
                           style: TextStyle(
-                              fontFamily: "Sf", fontWeight: FontWeight.bold),
+                              fontFamily: "Sf", fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -111,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 15,
                       color: Colors.black,
                       fontFamily: "Sf",
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w500),
                 ),
                 if (counterModel.addanimal.isEmpty)
                   const Padding(
@@ -122,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           "No animals added yet.",
                           style: TextStyle(
-                              fontFamily: "Sf", fontWeight: FontWeight.bold),
+                              fontFamily: "Sf", fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
